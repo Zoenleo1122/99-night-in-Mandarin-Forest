@@ -1,0 +1,998 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>森林生存國語挑戰</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Microsoft JhengHei', sans-serif;
+            background: #1a1a2e;
+            min-height: 100vh;
+            color: white;
+        }
+
+        .screen {
+            display: none;
+            min-height: 100vh;
+            background-size: cover;
+            background-position: center;
+            padding: 20px;
+        }
+
+        .screen.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* 狀態列 */
+        .status-bar {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .status-item {
+            font-size: 18px;
+        }
+
+        /* 主選單 */
+        #menu-screen {
+            background-image: url('images/menu.jpg');
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .game-title {
+            font-size: 36px;
+            text-shadow: 3px 3px 6px black;
+            margin-bottom: 40px;
+            background: rgba(0,0,0,0.6);
+            padding: 20px 40px;
+            border-radius: 15px;
+        }
+
+        .menu-btn {
+            background: linear-gradient(180deg, #4CAF50, #2E7D32);
+            color: white;
+            border: none;
+            padding: 20px 60px;
+            font-size: 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            margin: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: transform 0.2s;
+        }
+
+        .menu-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* 地圖選擇 */
+        #map-screen {
+            background-image: url('images/menu.jpg');
+        }
+
+        .map-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 15px;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .map-btn {
+            background: rgba(0,0,0,0.7);
+            color: white;
+            border: 3px solid #666;
+            padding: 20px;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .map-btn:hover:not(:disabled) {
+            border-color: #4CAF50;
+            background: rgba(76,175,80,0.3);
+        }
+
+        .map-btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .map-btn.completed {
+            border-color: #4CAF50;
+        }
+
+        /* 題目畫面 */
+        #question-screen {
+            background-size: cover;
+            background-position: center;
+        }
+
+        .question-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .question-box {
+            background: rgba(0,0,0,0.85);
+            padding: 30px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 100%;
+            text-align: center;
+        }
+
+        .question-progress {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 15px;
+        }
+
+        .question-text {
+            font-size: 24px;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .question-text ruby {
+            font-size: 24px;
+        }
+
+        .question-text rt {
+            font-size: 14px;
+            color: #88ccff;
+        }
+
+        .answer-input {
+            font-size: 28px;
+            padding: 15px;
+            width: 120px;
+            text-align: center;
+            border: 3px solid #4CAF50;
+            border-radius: 10px;
+            background: #222;
+            color: white;
+            margin-bottom: 20px;
+        }
+
+        .answer-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background: #333;
+            color: white;
+            border: 2px solid #555;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .option-btn:hover {
+            border-color: #4CAF50;
+            background: #444;
+        }
+
+        .submit-btn {
+            background: linear-gradient(180deg, #2196F3, #1565C0);
+            color: white;
+            border: none;
+            padding: 15px 40px;
+            font-size: 20px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .feedback {
+            margin-top: 15px;
+            font-size: 20px;
+            min-height: 30px;
+        }
+
+        .feedback.correct {
+            color: #4CAF50;
+        }
+
+        .feedback.wrong {
+            color: #f44336;
+        }
+
+        /* 商店 */
+        #shop-screen {
+            background-image: url('images/shop.jpg');
+        }
+
+        .shop-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .shop-item {
+            background: rgba(0,0,0,0.8);
+            padding: 15px 20px;
+            margin: 8px 0;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .shop-item-info {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 18px;
+        }
+
+        .shop-item-icon {
+            font-size: 30px;
+        }
+
+        .buy-btn {
+            background: linear-gradient(180deg, #FF9800, #F57C00);
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 16px;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .buy-btn:disabled {
+            background: #666;
+            cursor: not-allowed;
+        }
+
+        .back-btn {
+            background: #555;
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 20px;
+        }
+
+        /* 背包 */
+        .inventory {
+            background: rgba(0,0,0,0.7);
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .inventory-title {
+            font-size: 16px;
+            color: #aaa;
+            margin-bottom: 10px;
+        }
+
+        .inventory-items {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+        }
+
+        .inv-item {
+            background: #333;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* 怪物事件 */
+        #monster-screen {
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .monster-box {
+            background: rgba(50,0,0,0.9);
+            border: 3px solid #aa0000;
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+        }
+
+        .monster-icon {
+            font-size: 80px;
+            margin-bottom: 20px;
+        }
+
+        .monster-name {
+            font-size: 28px;
+            color: #ff6666;
+            margin-bottom: 15px;
+        }
+
+        .monster-desc {
+            font-size: 16px;
+            color: #ccc;
+            margin-bottom: 20px;
+        }
+
+        .monster-actions {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .monster-btn {
+            background: linear-gradient(180deg, #aa0000, #660000);
+            color: white;
+            border: none;
+            padding: 15px;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .monster-btn:disabled {
+            background: #444;
+            cursor: not-allowed;
+        }
+
+        /* 閱讀題特殊樣式 */
+        .reading-passage {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-align: left;
+            line-height: 1.8;
+            font-size: 18px;
+        }
+
+        /* 遊戲結束 */
+        #gameover-screen {
+            background: rgba(0,0,0,0.95);
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .gameover-box {
+            padding: 40px;
+        }
+
+        .gameover-title {
+            font-size: 36px;
+            color: #f44336;
+            margin-bottom: 20px;
+        }
+
+        .gameover-reason {
+            font-size: 20px;
+            color: #ccc;
+            margin-bottom: 30px;
+        }
+
+        /* 勝利畫面 */
+        .victory-title {
+            font-size: 36px;
+            color: #4CAF50;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- 主選單 -->
+    <div id="menu-screen" class="screen active">
+        <h1 class="game-title">🌲 森林生存國語挑戰 🌲</h1>
+        <button class="menu-btn" onclick="startGame()">開始遊戲</button>
+    </div>
+
+    <!-- 地圖選擇 -->
+    <div id="map-screen" class="screen">
+        <div class="status-bar">
+            <span class="status-item">💎 寶石：<span id="gems-display">0</span></span>
+            <span class="status-item">🍙 食物：<span id="food-display">0</span></span>
+        </div>
+        <div class="inventory">
+            <div class="inventory-title">🎒 背包</div>
+            <div class="inventory-items" id="inventory-display"></div>
+        </div>
+        <div class="map-container">
+            <button class="map-btn" id="map-cabin" onclick="enterMap('cabin')">🏚️ 字林小屋（生字填空）</button>
+            <button class="map-btn" id="map-swamp" onclick="enterMap('swamp')">🐸 錯字沼澤（改錯字）</button>
+            <button class="map-btn" id="map-temple" onclick="enterMap('temple')">🏛️ 部首神殿（部首選擇）</button>
+            <button class="map-btn" id="map-maze" onclick="enterMap('maze')">🌙 閱讀迷宮（閱讀測驗）</button>
+            <button class="map-btn" onclick="openShop()">🛒 商店</button>
+        </div>
+    </div>
+
+    <!-- 題目畫面 -->
+    <div id="question-screen" class="screen">
+        <div class="status-bar">
+            <span class="status-item">💎 寶石：<span id="gems-display2">0</span></span>
+            <span class="status-item">🍙 食物：<span id="food-display2">0</span></span>
+        </div>
+        <div class="question-container">
+            <div class="question-box">
+                <div class="question-progress" id="progress-display"></div>
+                <div id="reading-passage-container"></div>
+                <div class="question-text" id="question-text"></div>
+                <div id="answer-area"></div>
+                <div class="feedback" id="feedback"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- 商店 -->
+    <div id="shop-screen" class="screen">
+        <div class="status-bar">
+            <span class="status-item">💎 寶石：<span id="gems-display3">0</span></span>
+            <span class="status-item">🍙 食物：<span id="food-display3">0</span></span>
+        </div>
+        <div class="inventory">
+            <div class="inventory-title">🎒 背包</div>
+            <div class="inventory-items" id="inventory-display2"></div>
+        </div>
+        <div class="shop-container">
+            <div class="shop-item">
+                <div class="shop-item-info"><span class="shop-item-icon">🍙</span> 食物</div>
+                <button class="buy-btn" onclick="buyItem('food')">3 💎</button>
+            </div>
+            <div class="shop-item">
+                <div class="shop-item-info"><span class="shop-item-icon">🔥</span> 火把</div>
+                <button class="buy-btn" onclick="buyItem('torch')">4 💎</button>
+            </div>
+            <div class="shop-item">
+                <div class="shop-item-info"><span class="shop-item-icon">🐰</span> 兔子角</div>
+                <button class="buy-btn" onclick="buyItem('rabbitHorn')">4 💎</button>
+            </div>
+            <div class="shop-item">
+                <div class="shop-item-info"><span class="shop-item-icon">🗡️</span> 苦無</div>
+                <button class="buy-btn" onclick="buyItem('kunai')">10 💎</button>
+            </div>
+            <div class="shop-item">
+                <div class="shop-item-info"><span class="shop-item-icon">🧵</span> 合成毛皮（低等毛皮 ×2）</div>
+                <button class="buy-btn" onclick="craftFur()">合成</button>
+            </div>
+            <button class="back-btn" onclick="closeShop()">返回地圖</button>
+        </div>
+    </div>
+
+    <!-- 怪物事件 -->
+    <div id="monster-screen" class="screen">
+        <div class="monster-box">
+            <div class="monster-icon" id="monster-icon">🐺</div>
+            <div class="monster-name" id="monster-name">Wolf</div>
+            <div class="monster-desc" id="monster-desc"></div>
+            <div class="monster-actions" id="monster-actions"></div>
+        </div>
+    </div>
+
+    <!-- 遊戲結束 -->
+    <div id="gameover-screen" class="screen">
+        <div class="gameover-box">
+            <h1 class="gameover-title">💀 遊戲結束</h1>
+            <p class="gameover-reason" id="gameover-reason"></p>
+            <button class="menu-btn" onclick="location.reload()">重新開始</button>
+        </div>
+    </div>
+
+    <!-- 勝利畫面 -->
+    <div id="victory-screen" class="screen">
+        <div class="gameover-box">
+            <h1 class="victory-title">🎉 恭喜過關！</h1>
+            <p style="font-size: 20px; margin-bottom: 30px;">你成功在森林中生存下來！</p>
+            <p style="font-size: 18px; color: #aaa;" id="final-stats"></p>
+            <button class="menu-btn" onclick="location.reload()">再玩一次</button>
+        </div>
+    </div>
+
+    <script>
+        // ==================== 遊戲資料 ====================
+        
+        // 題庫
+        const questions = {
+            cabin: [
+                { q: "清明節到了，我們去（ㄐㄧㄠ）外活動。", a: "郊" },
+                { q: "媽媽準備了美味的（ㄓㄨˊ）筒飯。", a: "竹" },
+                { q: "我們要（ㄐㄧˋ）拜祖先，保平安。", a: "祭" },
+                { q: "食物的香味好（ㄒㄧ）引人。", a: "吸" },
+                { q: "心裡充滿了（ㄒㄧ）望。", a: "希" },
+                { q: "大家（ㄑㄧㄤˇ）著舉手分享。", a: "搶" },
+                { q: "同學們（ㄐㄩˇ）手回答問題。", a: "舉" },
+                { q: "蝦子煮（ㄕㄡˊ）了變得很好吃。", a: "熟" },
+                { q: "聽了有（ㄑㄩˋ）的故事，大家更開心了。", a: "趣" },
+                { q: "浴室裡（ㄖㄜˋ）呼呼的，好像在蒸東西。", a: "熱" },
+                { q: "黃瓜和紅蘿蔔一起排（ㄉㄨㄟˋ）沖澡。", a: "隊" },
+                { q: "小米粒（ㄋㄧㄢˊ）在蛋的身上。", a: "黏" },
+                { q: "大家（ㄒㄧˋ）心的幫蛋洗澡。", a: "細" },
+                { q: "熱氣像（ㄅㄛˊ）薄的白霧。", a: "薄" },
+                { q: "表哥出了一道數學題讓表弟（ㄘㄞ）字謎。", a: "猜" },
+                { q: "大家（ㄧˋ）口同聲的說答對了。", a: "異" },
+                { q: "表弟（ㄒㄧㄢˊ）的發慌，不知道要做什麼。", a: "閒" },
+                { q: "表弟看到一（ㄕㄢˋ）奇怪的門。", a: "扇" },
+                { q: "鵝的身體（ㄨㄢ）曲著，很可愛。", a: "彎" },
+                { q: "鵝用腳（ㄓㄤˇ）撥開水面。", a: "掌" }
+            ],
+            swamp: [
+                { q: "食物的香味好吸引人，心裡充滿了西望。", wrong: "西", a: "希" },
+                { q: "志工媽媽說了有乘的故事，大家更開心了。", wrong: "乘", a: "趣" },
+                { q: "熱氣在空中慢慢飄著，像博博的白霧。", wrong: "博", a: "薄" },
+                { q: "大家意口同聲的說答對了。", wrong: "意", a: "異" },
+                { q: "表弟騎著馬闖了進去，仔西看了四周。", wrong: "西", a: "細" }
+            ],
+            temple: [
+                { q: "「祭」的部首是什麼？", options: ["示", "月", "又", "夕"], a: "示" },
+                { q: "「熟」的部首是什麼？", options: ["子", "火", "丸", "亠"], a: "火" },
+                { q: "「黏」的部首是什麼？", options: ["米", "禾", "黍", "占"], a: "黍" },
+                { q: "「扇」的部首是什麼？", options: ["羽", "戶", "手", "門"], a: "戶" },
+                { q: "「彎」的部首是什麼？", options: ["弓", "糸", "言", "亦"], a: "弓" }
+            ],
+            maze: {
+                passage: "浴室裡熱呼呼的，好像在蒸東西。原來是蔬菜班在點名，黃瓜、紅蘿蔔和地瓜葉通通一起排隊沖澡。這時胖胖的蛋發現一些小米粒黏在身上。他急著說：「請問哪位可以幫我變乾淨？」大家細心的一起幫蛋洗澡。熱氣在空中慢慢飄著，像薄薄的白霧。洗好後，海苔老師拍手笑著說：「你們是香香的壽司小隊！」",
+                questions: [
+                    { q: "這個故事發生在哪裡？", options: ["廚房", "浴室", "教室", "操場"], a: "浴室" },
+                    { q: "誰的身上黏著小米粒？", options: ["黃瓜", "紅蘿蔔", "蛋", "海苔"], a: "蛋" },
+                    { q: "「薄薄的白霧」指的是什麼？", options: ["雲", "熱氣", "煙火", "灰塵"], a: "熱氣" },
+                    { q: "海苔在故事裡的角色是什麼？", options: ["學生", "老師", "爸爸", "客人"], a: "老師" },
+                    { q: "根據故事，他們最後變成了什麼？", options: ["炒飯", "沙拉", "壽司", "湯麵"], a: "壽司" }
+                ]
+            }
+        };
+
+        // 地圖背景
+        const mapBackgrounds = {
+            cabin: "images/cabin.jpg",
+            swamp: "images/swamp.jpg",
+            temple: "images/temple.jpg",
+            maze: "images/maze.jpg"
+        };
+
+        // 怪物資料
+        const monsters = {
+            wolf: {
+                name: "Wolf 🐺",
+                icon: "🐺",
+                desc: "一隻灰狼出現了！",
+                actions: [
+                    { text: "🔥 用火把嚇走", requires: { torch: 1 }, consumes: { torch: 1 } },
+                    { text: "🗡️ 用苦無打倒", requires: { kunai: 1 }, consumes: { kunai: 1 }, drops: { lowFur: 1 } }
+                ]
+            },
+            alphaWolf: {
+                name: "Alpha Wolf 🐺👑",
+                icon: "🐺",
+                desc: "狼王出現了！比普通狼更強大！",
+                actions: [
+                    { text: "🗡️ 用苦無 ×2 打倒", requires: { kunai: 2 }, consumes: { kunai: 2 }, drops: { fur: 1 } }
+                ]
+            },
+            polarBear: {
+                name: "北極熊 🐻‍❄️",
+                icon: "🐻‍❄️",
+                desc: "巨大的北極熊！需要完整裝備才能對抗！",
+                actions: [
+                    { text: "🗡️🧥🐰 全力攻擊", requires: { kunai: 2, fur: 1, rabbitHorn: 1 }, consumes: { kunai: 2, fur: 1, rabbitHorn: 1 }, drops: { sword: 1 } }
+                ]
+            }
+        };
+
+        // ==================== 遊戲狀態 ====================
+        
+        let gameState = {
+            gems: 0,
+            food: 2,
+            inventory: {
+                torch: 0,
+                rabbitHorn: 0,
+                kunai: 0,
+                lowFur: 0,
+                fur: 0,
+                sword: 0
+            },
+            completedMaps: [],
+            currentMap: null,
+            currentQuestionIndex: 0,
+            retryUsed: false,
+            mapsCleared: 0
+        };
+
+        // ==================== 畫面切換 ====================
+        
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+            document.getElementById(screenId).classList.add('active');
+            updateDisplays();
+        }
+
+        function updateDisplays() {
+            ['gems-display', 'gems-display2', 'gems-display3'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = gameState.gems;
+            });
+            ['food-display', 'food-display2', 'food-display3'].forEach(id => {
+                const el = document.getElementById(id);
+                if (el) el.textContent = gameState.food;
+            });
+            updateInventoryDisplay();
+            updateMapButtons();
+        }
+
+        function updateInventoryDisplay() {
+            const items = [];
+            if (gameState.inventory.torch > 0) items.push(`🔥 火把 ×${gameState.inventory.torch}`);
+            if (gameState.inventory.rabbitHorn > 0) items.push(`🐰 兔子角 ×${gameState.inventory.rabbitHorn}`);
+            if (gameState.inventory.kunai > 0) items.push(`🗡️ 苦無 ×${gameState.inventory.kunai}`);
+            if (gameState.inventory.lowFur > 0) items.push(`🧶 低等毛皮 ×${gameState.inventory.lowFur}`);
+            if (gameState.inventory.fur > 0) items.push(`🧥 毛皮 ×${gameState.inventory.fur}`);
+            if (gameState.inventory.sword > 0) items.push(`⚔️ 劍 ×${gameState.inventory.sword}`);
+            
+            const html = items.length > 0 
+                ? items.map(i => `<span class="inv-item">${i}</span>`).join('')
+                : '<span class="inv-item">（空）</span>';
+            
+            document.getElementById('inventory-display').innerHTML = html;
+            const inv2 = document.getElementById('inventory-display2');
+            if (inv2) inv2.innerHTML = html;
+        }
+
+        function updateMapButtons() {
+            const maps = ['cabin', 'swamp', 'temple', 'maze'];
+            maps.forEach(map => {
+                const btn = document.getElementById(`map-${map}`);
+                if (gameState.completedMaps.includes(map)) {
+                    btn.classList.add('completed');
+                    btn.textContent = btn.textContent.replace('）', '）✅');
+                }
+            });
+        }
+
+        // ==================== 遊戲開始 ====================
+        
+        function startGame() {
+            gameState = {
+                gems: 0,
+                food: 2,
+                inventory: { torch: 0, rabbitHorn: 0, kunai: 0, lowFur: 0, fur: 0, sword: 0 },
+                completedMaps: [],
+                currentMap: null,
+                currentQuestionIndex: 0,
+                retryUsed: false,
+                mapsCleared: 0
+            };
+            showScreen('map-screen');
+        }
+
+        // ==================== 地圖 ====================
+        
+        function enterMap(mapId) {
+            if (gameState.completedMaps.includes(mapId)) {
+                alert('這個地圖已經完成了！');
+                return;
+            }
+            
+            gameState.currentMap = mapId;
+            gameState.currentQuestionIndex = 0;
+            gameState.retryUsed = false;
+            
+            const screen = document.getElementById('question-screen');
+            screen.style.backgroundImage = `url('${mapBackgrounds[mapId]}')`;
+            
+            showScreen('question-screen');
+            showQuestion();
+        }
+
+        // ==================== 題目 ====================
+        
+        function showQuestion() {
+            const mapId = gameState.currentMap;
+            let questionData, totalQuestions;
+            
+            if (mapId === 'maze') {
+                questionData = questions.maze.questions[gameState.currentQuestionIndex];
+                totalQuestions = questions.maze.questions.length;
+                
+                // 顯示閱讀文章
+                document.getElementById('reading-passage-container').innerHTML = 
+                    `<div class="reading-passage">${questions.maze.passage}</div>`;
+            } else {
+                questionData = questions[mapId][gameState.currentQuestionIndex];
+                totalQuestions = questions[mapId].length;
+                document.getElementById('reading-passage-container').innerHTML = '';
+            }
+            
+            document.getElementById('progress-display').textContent = 
+                `第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
+            
+            document.getElementById('question-text').textContent = questionData.q;
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            
+            // 根據題型顯示不同的答題區
+            const answerArea = document.getElementById('answer-area');
+            
+            if (mapId === 'cabin') {
+                // 填空題
+                answerArea.innerHTML = `
+                    <input type="text" class="answer-input" id="answer-input" maxlength="1" autofocus>
+                    <br>
+                    <button class="submit-btn" onclick="checkAnswer()">確定</button>
+                `;
+                document.getElementById('answer-input').focus();
+            } else if (mapId === 'swamp') {
+                // 改錯題
+                answerArea.innerHTML = `
+                    <p style="margin-bottom:10px; color:#ffaa00;">錯字：「${questionData.wrong}」</p>
+                    <input type="text" class="answer-input" id="answer-input" maxlength="1" autofocus>
+                    <br>
+                    <button class="submit-btn" onclick="checkAnswer()">確定</button>
+                `;
+                document.getElementById('answer-input').focus();
+            } else {
+                // 選擇題
+                const optionsHtml = questionData.options.map(opt => 
+                    `<button class="option-btn" onclick="selectOption('${opt}')">${opt}</button>`
+                ).join('');
+                answerArea.innerHTML = `<div class="answer-options">${optionsHtml}</div>`;
+            }
+        }
+
+        function selectOption(option) {
+            checkAnswerWithValue(option);
+        }
+
+        function checkAnswer() {
+            const input = document.getElementById('answer-input');
+            if (!input) return;
+            checkAnswerWithValue(input.value.trim());
+        }
+
+        function checkAnswerWithValue(userAnswer) {
+            const mapId = gameState.currentMap;
+            let correctAnswer;
+            let gemsPerQuestion;
+            
+            if (mapId === 'maze') {
+                correctAnswer = questions.maze.questions[gameState.currentQuestionIndex].a;
+                gemsPerQuestion = 2;
+            } else {
+                correctAnswer = questions[mapId][gameState.currentQuestionIndex].a;
+                gemsPerQuestion = mapId === 'cabin' ? 1 : 2;
+            }
+            
+            const feedback = document.getElementById('feedback');
+            
+            if (userAnswer === correctAnswer) {
+                feedback.textContent = `✅ 正確！+${gemsPerQuestion} 💎`;
+                feedback.className = 'feedback correct';
+                gameState.gems += gemsPerQuestion;
+                gameState.retryUsed = false;
+                
+                setTimeout(() => {
+                    nextQuestion();
+                }, 1000);
+            } else {
+                if (!gameState.retryUsed) {
+                    feedback.textContent = '❌ 錯誤！再試一次';
+                    feedback.className = 'feedback wrong';
+                    gameState.retryUsed = true;
+                    const input = document.getElementById('answer-input');
+                    if (input) {
+                        input.value = '';
+                        input.focus();
+                    }
+                } else {
+                    feedback.textContent = `❌ 答案是：${correctAnswer}`;
+                    feedback.className = 'feedback wrong';
+                    gameState.retryUsed = false;
+                    
+                    setTimeout(() => {
+                        nextQuestion();
+                    }, 1500);
+                }
+            }
+            
+            updateDisplays();
+        }
+
+        function nextQuestion() {
+            const mapId = gameState.currentMap;
+            const totalQuestions = mapId === 'maze' 
+                ? questions.maze.questions.length 
+                : questions[mapId].length;
+            
+            gameState.currentQuestionIndex++;
+            
+            if (gameState.currentQuestionIndex >= totalQuestions) {
+                completeMap();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function completeMap() {
+            gameState.completedMaps.push(gameState.currentMap);
+            gameState.mapsCleared++;
+            
+            // 消耗食物
+            gameState.food--;
+            
+            if (gameState.food < 0) {
+                gameOver('你餓死了！記得在商店購買食物。');
+                return;
+            }
+            
+            // 檢查是否全部完成
+            if (gameState.completedMaps.length >= 4) {
+                victory();
+                return;
+            }
+            
+            // 怪物事件（第3張地圖後開始出現）
+            if (gameState.mapsCleared >= 3 && Math.random() < 0.7) {
+                triggerMonster();
+            } else {
+                alert(`🎉 地圖完成！\n\n獲得寶石，消耗 1 食物\n剩餘食物：${gameState.food}`);
+                showScreen('map-screen');
+            }
+        }
+
+        // ==================== 商店 ====================
+        
+        function openShop() {
+            showScreen('shop-screen');
+        }
+
+        function closeShop() {
+            showScreen('map-screen');
+        }
+
+        function buyItem(item) {
+            const prices = { food: 3, torch: 4, rabbitHorn: 4, kunai: 10 };
+            const price = prices[item];
+            
+            if (gameState.gems < price) {
+                alert('寶石不足！');
+                return;
+            }
+            
+            gameState.gems -= price;
+            if (item === 'food') {
+                gameState.food++;
+            } else {
+                gameState.inventory[item]++;
+            }
+            
+            updateDisplays();
+        }
+
+        function craftFur() {
+            if (gameState.inventory.lowFur >= 2) {
+                gameState.inventory.lowFur -= 2;
+                gameState.inventory.fur++;
+                alert('合成成功！獲得毛皮 ×1');
+                updateDisplays();
+            } else {
+                alert('需要低等毛皮 ×2 才能合成！');
+            }
+        }
+
+        // ==================== 怪物事件 ====================
+        
+        function triggerMonster() {
+            // 隨機選擇怪物
+            const monsterTypes = ['wolf', 'wolf', 'alphaWolf'];
+            if (gameState.mapsCleared >= 4) monsterTypes.push('polarBear');
+            
+            const monsterType = monsterTypes[Math.floor(Math.random() * monsterTypes.length)];
+            const monster = monsters[monsterType];
+            
+            document.getElementById('monster-icon').textContent = monster.icon;
+            document.getElementById('monster-name').textContent = monster.name;
+            document.getElementById('monster-desc').textContent = monster.desc;
+            
+            const actionsHtml = monster.actions.map((action, index) => {
+                const canUse = checkRequirements(action.requires);
+                return `<button class="monster-btn" ${canUse ? '' : 'disabled'} 
+                    onclick="useMonsterAction('${monsterType}', ${index})">${action.text}</button>`;
+            }).join('');
+            
+            document.getElementById('monster-actions').innerHTML = actionsHtml + 
+                `<button class="monster-btn" style="background:#333;" onclick="fleeMonster()">🏃 逃跑（損失一半寶石）</button>`;
+            
+            showScreen('monster-screen');
+        }
+
+        function checkRequirements(requires) {
+            for (let item in requires) {
+                if ((gameState.inventory[item] || 0) < requires[item]) {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        function useMonsterAction(monsterType, actionIndex) {
+            const action = monsters[monsterType].actions[actionIndex];
+            
+            // 消耗道具
+            for (let item in action.consumes) {
+                gameState.inventory[item] -= action.consumes[item];
+            }
+            
+            // 獲得掉落物
+            if (action.drops) {
+                for (let item in action.drops) {
+                    gameState.inventory[item] = (gameState.inventory[item] || 0) + action.drops[item];
+                }
+                const dropNames = { lowFur: '低等毛皮', fur: '毛皮', sword: '劍' };
+                const dropText = Object.entries(action.drops).map(([k, v]) => `${dropNames[k]} ×${v}`).join(', ');
+                alert(`🎉 成功！獲得：${dropText}`);
+            } else {
+                alert('🎉 成功擊退怪物！');
+            }
+            
+            showScreen('map-screen');
+        }
+
+        function fleeMonster() {
+            gameState.gems = Math.floor(gameState.gems / 2);
+            alert(`你逃跑了，損失一半寶石！\n剩餘寶石：${gameState.gems}`);
+            showScreen('map-screen');
+        }
+
+        // ==================== 遊戲結束 ====================
+        
+        function gameOver(reason) {
+            document.getElementById('gameover-reason').textContent = reason;
+            showScreen('gameover-screen');
+        }
+
+        function victory() {
+            document.getElementById('final-stats').innerHTML = 
+                `最終寶石：${gameState.gems} 💎<br>` +
+                `收集到的劍：${gameState.inventory.sword} ⚔️`;
+            showScreen('victory-screen');
+        }
+
+        // 鍵盤事件
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                const input = document.getElementById('answer-input');
+                if (input && document.activeElement === input) {
+                    checkAnswer();
+                }
+            }
+        });
+    </script>
+</body>
+</html>
