@@ -2,7 +2,7 @@
 <html lang="zh-TW">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>森林生存國語挑戰</title>
     <style>
         * {
@@ -12,10 +12,11 @@
         }
 
         body {
-            font-family: 'Microsoft JhengHei', sans-serif;
+            font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
             background: #1a1a2e;
             min-height: 100vh;
             color: white;
+            overflow-x: hidden;
         }
 
         .screen {
@@ -56,11 +57,11 @@
         }
 
         .game-title {
-            font-size: 36px;
+            font-size: 32px;
             text-shadow: 3px 3px 6px black;
             margin-bottom: 40px;
             background: rgba(0,0,0,0.6);
-            padding: 20px 40px;
+            padding: 20px 30px;
             border-radius: 15px;
         }
 
@@ -101,7 +102,7 @@
             color: white;
             border: 3px solid #666;
             padding: 20px;
-            font-size: 20px;
+            font-size: 18px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
@@ -137,7 +138,7 @@
 
         .question-box {
             background: rgba(0,0,0,0.85);
-            padding: 30px;
+            padding: 25px;
             border-radius: 15px;
             max-width: 500px;
             width: 100%;
@@ -151,30 +152,87 @@
         }
 
         .question-text {
-            font-size: 24px;
+            font-size: 22px;
             line-height: 1.6;
             margin-bottom: 20px;
         }
 
-        .question-text ruby {
-            font-size: 24px;
-        }
-
-        .question-text rt {
-            font-size: 14px;
-            color: #88ccff;
-        }
-
-        .answer-input {
-            font-size: 28px;
-            padding: 15px;
-            width: 120px;
-            text-align: center;
-            border: 3px solid #4CAF50;
+        /* 手寫畫布 */
+        .canvas-container {
+            background: white;
             border-radius: 10px;
-            background: #222;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        #writing-canvas {
+            border: 3px solid #4CAF50;
+            border-radius: 8px;
+            background: #fffef0;
+            touch-action: none;
+        }
+
+        .canvas-buttons {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+
+        .canvas-btn {
+            padding: 12px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+        }
+
+        .clear-btn {
+            background: #666;
             color: white;
-            margin-bottom: 20px;
+        }
+
+        .done-btn {
+            background: linear-gradient(180deg, #2196F3, #1565C0);
+            color: white;
+        }
+
+        /* 答案確認區 */
+        .answer-reveal {
+            background: rgba(255,255,255,0.1);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+        }
+
+        .correct-answer {
+            font-size: 60px;
+            margin: 15px 0;
+        }
+
+        .confirm-buttons {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 15px;
+        }
+
+        .confirm-btn {
+            padding: 15px 30px;
+            font-size: 18px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .correct-btn {
+            background: linear-gradient(180deg, #4CAF50, #2E7D32);
+            color: white;
+        }
+
+        .wrong-btn {
+            background: linear-gradient(180deg, #f44336, #c62828);
+            color: white;
         }
 
         .answer-options {
@@ -198,16 +256,6 @@
         .option-btn:hover {
             border-color: #4CAF50;
             background: #444;
-        }
-
-        .submit-btn {
-            background: linear-gradient(180deg, #2196F3, #1565C0);
-            color: white;
-            border: none;
-            padding: 15px 40px;
-            font-size: 20px;
-            border-radius: 10px;
-            cursor: pointer;
         }
 
         .feedback {
@@ -375,6 +423,8 @@
             text-align: left;
             line-height: 1.8;
             font-size: 18px;
+            max-height: 200px;
+            overflow-y: auto;
         }
 
         /* 遊戲結束 */
@@ -427,8 +477,8 @@
             <div class="inventory-items" id="inventory-display"></div>
         </div>
         <div class="map-container">
-            <button class="map-btn" id="map-cabin" onclick="enterMap('cabin')">🏚️ 字林小屋（生字填空）</button>
-            <button class="map-btn" id="map-swamp" onclick="enterMap('swamp')">🐸 錯字沼澤（改錯字）</button>
+            <button class="map-btn" id="map-cabin" onclick="enterMap('cabin')">🏚️ 字林小屋（生字手寫）</button>
+            <button class="map-btn" id="map-swamp" onclick="enterMap('swamp')">🐸 錯字沼澤（改錯手寫）</button>
             <button class="map-btn" id="map-temple" onclick="enterMap('temple')">🏛️ 部首神殿（部首選擇）</button>
             <button class="map-btn" id="map-maze" onclick="enterMap('maze')">🌙 閱讀迷宮（閱讀測驗）</button>
             <button class="map-btn" onclick="openShop()">🛒 商店</button>
@@ -519,7 +569,6 @@
     <script>
         // ==================== 遊戲資料 ====================
         
-        // 題庫
         const questions = {
             cabin: [
                 { q: "清明節到了，我們去（ㄐㄧㄠ）外活動。", a: "郊" },
@@ -569,7 +618,6 @@
             }
         };
 
-        // 地圖背景
         const mapBackgrounds = {
             cabin: "images/cabin.jpg",
             swamp: "images/swamp.jpg",
@@ -577,7 +625,6 @@
             maze: "images/maze.jpg"
         };
 
-        // 怪物資料
         const monsters = {
             wolf: {
                 name: "Wolf 🐺",
@@ -626,6 +673,12 @@
             mapsCleared: 0
         };
 
+        // 手寫畫布變數
+        let canvas, ctx;
+        let isDrawing = false;
+        let lastX = 0;
+        let lastY = 0;
+
         // ==================== 畫面切換 ====================
         
         function showScreen(screenId) {
@@ -671,7 +724,9 @@
                 const btn = document.getElementById(`map-${map}`);
                 if (gameState.completedMaps.includes(map)) {
                     btn.classList.add('completed');
-                    btn.textContent = btn.textContent.replace('）', '）✅');
+                    if (!btn.textContent.includes('✅')) {
+                        btn.textContent = btn.textContent + ' ✅';
+                    }
                 }
             });
         }
@@ -711,6 +766,80 @@
             showQuestion();
         }
 
+        // ==================== 手寫畫布 ====================
+
+        function initCanvas() {
+            canvas = document.getElementById('writing-canvas');
+            if (!canvas) return;
+            
+            ctx = canvas.getContext('2d');
+            ctx.strokeStyle = '#000';
+            ctx.lineWidth = 6;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+
+            // 滑鼠事件
+            canvas.addEventListener('mousedown', startDrawing);
+            canvas.addEventListener('mousemove', draw);
+            canvas.addEventListener('mouseup', stopDrawing);
+            canvas.addEventListener('mouseout', stopDrawing);
+
+            // 觸控事件
+            canvas.addEventListener('touchstart', handleTouchStart);
+            canvas.addEventListener('touchmove', handleTouchMove);
+            canvas.addEventListener('touchend', stopDrawing);
+        }
+
+        function startDrawing(e) {
+            isDrawing = true;
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function draw(e) {
+            if (!isDrawing) return;
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(e.offsetX, e.offsetY);
+            ctx.stroke();
+            [lastX, lastY] = [e.offsetX, e.offsetY];
+        }
+
+        function stopDrawing() {
+            isDrawing = false;
+        }
+
+        function handleTouchStart(e) {
+            e.preventDefault();
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            isDrawing = true;
+            lastX = touch.clientX - rect.left;
+            lastY = touch.clientY - rect.top;
+        }
+
+        function handleTouchMove(e) {
+            e.preventDefault();
+            if (!isDrawing) return;
+            const touch = e.touches[0];
+            const rect = canvas.getBoundingClientRect();
+            const x = touch.clientX - rect.left;
+            const y = touch.clientY - rect.top;
+            
+            ctx.beginPath();
+            ctx.moveTo(lastX, lastY);
+            ctx.lineTo(x, y);
+            ctx.stroke();
+            
+            lastX = x;
+            lastY = y;
+        }
+
+        function clearCanvas() {
+            if (ctx) {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+        }
+
         // ==================== 題目 ====================
         
         function showQuestion() {
@@ -720,8 +849,6 @@
             if (mapId === 'maze') {
                 questionData = questions.maze.questions[gameState.currentQuestionIndex];
                 totalQuestions = questions.maze.questions.length;
-                
-                // 顯示閱讀文章
                 document.getElementById('reading-passage-container').innerHTML = 
                     `<div class="reading-passage">${questions.maze.passage}</div>`;
             } else {
@@ -737,26 +864,29 @@
             document.getElementById('feedback').textContent = '';
             document.getElementById('feedback').className = 'feedback';
             
-            // 根據題型顯示不同的答題區
             const answerArea = document.getElementById('answer-area');
             
-            if (mapId === 'cabin') {
-                // 填空題
+            if (mapId === 'cabin' || mapId === 'swamp') {
+                // 手寫題
+                let extraInfo = '';
+                if (mapId === 'swamp') {
+                    extraInfo = `<p style="margin-bottom:10px; color:#ffaa00;">找出錯字「${questionData.wrong}」並寫出正確的字</p>`;
+                }
+                
                 answerArea.innerHTML = `
-                    <input type="text" class="answer-input" id="answer-input" maxlength="1" autofocus>
-                    <br>
-                    <button class="submit-btn" onclick="checkAnswer()">確定</button>
+                    ${extraInfo}
+                    <div class="canvas-container">
+                        <canvas id="writing-canvas" width="200" height="200"></canvas>
+                    </div>
+                    <div class="canvas-buttons">
+                        <button class="canvas-btn clear-btn" onclick="clearCanvas()">清除</button>
+                        <button class="canvas-btn done-btn" onclick="showAnswer()">我寫好了</button>
+                    </div>
+                    <div id="answer-reveal" style="display:none;"></div>
                 `;
-                document.getElementById('answer-input').focus();
-            } else if (mapId === 'swamp') {
-                // 改錯題
-                answerArea.innerHTML = `
-                    <p style="margin-bottom:10px; color:#ffaa00;">錯字：「${questionData.wrong}」</p>
-                    <input type="text" class="answer-input" id="answer-input" maxlength="1" autofocus>
-                    <br>
-                    <button class="submit-btn" onclick="checkAnswer()">確定</button>
-                `;
-                document.getElementById('answer-input').focus();
+                
+                setTimeout(initCanvas, 100);
+                
             } else {
                 // 選擇題
                 const optionsHtml = questionData.options.map(opt => 
@@ -766,32 +896,73 @@
             }
         }
 
-        function selectOption(option) {
-            checkAnswerWithValue(option);
-        }
-
-        function checkAnswer() {
-            const input = document.getElementById('answer-input');
-            if (!input) return;
-            checkAnswerWithValue(input.value.trim());
-        }
-
-        function checkAnswerWithValue(userAnswer) {
+        function showAnswer() {
             const mapId = gameState.currentMap;
-            let correctAnswer;
-            let gemsPerQuestion;
+            const questionData = questions[mapId][gameState.currentQuestionIndex];
+            const gemsPerQuestion = mapId === 'cabin' ? 1 : 2;
+            
+            document.getElementById('answer-reveal').style.display = 'block';
+            document.getElementById('answer-reveal').innerHTML = `
+                <div class="answer-reveal">
+                    <p>正確答案是：</p>
+                    <div class="correct-answer">${questionData.a}</div>
+                    <p>你寫對了嗎？</p>
+                    <div class="confirm-buttons">
+                        <button class="confirm-btn correct-btn" onclick="confirmAnswer(true, ${gemsPerQuestion})">✅ 寫對了 +${gemsPerQuestion}💎</button>
+                        <button class="confirm-btn wrong-btn" onclick="confirmAnswer(false, ${gemsPerQuestion})">❌ 寫錯了</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function confirmAnswer(isCorrect, gems) {
+            const feedback = document.getElementById('feedback');
+            
+            if (isCorrect) {
+                feedback.textContent = `✅ 正確！+${gems} 💎`;
+                feedback.className = 'feedback correct';
+                gameState.gems += gems;
+                gameState.retryUsed = false;
+                
+                setTimeout(() => {
+                    nextQuestion();
+                }, 800);
+            } else {
+                if (!gameState.retryUsed) {
+                    feedback.textContent = '❌ 再試一次！';
+                    feedback.className = 'feedback wrong';
+                    gameState.retryUsed = true;
+                    clearCanvas();
+                    document.getElementById('answer-reveal').style.display = 'none';
+                } else {
+                    feedback.textContent = '❌ 沒關係，繼續加油！';
+                    feedback.className = 'feedback wrong';
+                    gameState.retryUsed = false;
+                    
+                    setTimeout(() => {
+                        nextQuestion();
+                    }, 1000);
+                }
+            }
+            
+            updateDisplays();
+        }
+
+        function selectOption(option) {
+            const mapId = gameState.currentMap;
+            let correctAnswer, gemsPerQuestion;
             
             if (mapId === 'maze') {
                 correctAnswer = questions.maze.questions[gameState.currentQuestionIndex].a;
                 gemsPerQuestion = 2;
             } else {
                 correctAnswer = questions[mapId][gameState.currentQuestionIndex].a;
-                gemsPerQuestion = mapId === 'cabin' ? 1 : 2;
+                gemsPerQuestion = 2;
             }
             
             const feedback = document.getElementById('feedback');
             
-            if (userAnswer === correctAnswer) {
+            if (option === correctAnswer) {
                 feedback.textContent = `✅ 正確！+${gemsPerQuestion} 💎`;
                 feedback.className = 'feedback correct';
                 gameState.gems += gemsPerQuestion;
@@ -805,11 +976,6 @@
                     feedback.textContent = '❌ 錯誤！再試一次';
                     feedback.className = 'feedback wrong';
                     gameState.retryUsed = true;
-                    const input = document.getElementById('answer-input');
-                    if (input) {
-                        input.value = '';
-                        input.focus();
-                    }
                 } else {
                     feedback.textContent = `❌ 答案是：${correctAnswer}`;
                     feedback.className = 'feedback wrong';
@@ -843,7 +1009,6 @@
             gameState.completedMaps.push(gameState.currentMap);
             gameState.mapsCleared++;
             
-            // 消耗食物
             gameState.food--;
             
             if (gameState.food < 0) {
@@ -851,17 +1016,15 @@
                 return;
             }
             
-            // 檢查是否全部完成
             if (gameState.completedMaps.length >= 4) {
                 victory();
                 return;
             }
             
-            // 怪物事件（第3張地圖後開始出現）
             if (gameState.mapsCleared >= 3 && Math.random() < 0.7) {
                 triggerMonster();
             } else {
-                alert(`🎉 地圖完成！\n\n獲得寶石，消耗 1 食物\n剩餘食物：${gameState.food}`);
+                alert(`🎉 地圖完成！\n\n消耗 1 食物\n剩餘食物：${gameState.food}`);
                 showScreen('map-screen');
             }
         }
@@ -909,7 +1072,6 @@
         // ==================== 怪物事件 ====================
         
         function triggerMonster() {
-            // 隨機選擇怪物
             const monsterTypes = ['wolf', 'wolf', 'alphaWolf'];
             if (gameState.mapsCleared >= 4) monsterTypes.push('polarBear');
             
@@ -944,12 +1106,10 @@
         function useMonsterAction(monsterType, actionIndex) {
             const action = monsters[monsterType].actions[actionIndex];
             
-            // 消耗道具
             for (let item in action.consumes) {
                 gameState.inventory[item] -= action.consumes[item];
             }
             
-            // 獲得掉落物
             if (action.drops) {
                 for (let item in action.drops) {
                     gameState.inventory[item] = (gameState.inventory[item] || 0) + action.drops[item];
@@ -983,16 +1143,6 @@
                 `收集到的劍：${gameState.inventory.sword} ⚔️`;
             showScreen('victory-screen');
         }
-
-        // 鍵盤事件
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Enter') {
-                const input = document.getElementById('answer-input');
-                if (input && document.activeElement === input) {
-                    checkAnswer();
-                }
-            }
-        });
     </script>
 </body>
 </html>
