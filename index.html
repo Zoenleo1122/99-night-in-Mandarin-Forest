@@ -24,7 +24,7 @@
             min-height: 100vh;
             background-size: cover;
             background-position: center;
-            padding: 20px;
+            padding: 15px;
         }
 
         .screen.active {
@@ -34,18 +34,16 @@
 
         .status-bar {
             background: rgba(0,0,0,0.7);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
             display: flex;
             justify-content: space-around;
             flex-wrap: wrap;
             gap: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
-        .status-item {
-            font-size: 18px;
-        }
+        .status-item { font-size: 16px; }
 
         #menu-screen {
             background-image: url('images/menu.jpg');
@@ -55,11 +53,11 @@
         }
 
         .game-title {
-            font-size: 28px;
+            font-size: 26px;
             text-shadow: 3px 3px 6px black;
             margin-bottom: 40px;
             background: rgba(0,0,0,0.6);
-            padding: 20px 30px;
+            padding: 20px 25px;
             border-radius: 15px;
         }
 
@@ -67,8 +65,8 @@
             background: linear-gradient(180deg, #4CAF50, #2E7D32);
             color: white;
             border: none;
-            padding: 20px 60px;
-            font-size: 24px;
+            padding: 18px 50px;
+            font-size: 22px;
             border-radius: 15px;
             cursor: pointer;
             margin: 10px;
@@ -76,20 +74,16 @@
             transition: transform 0.2s;
         }
 
-        .menu-btn:hover {
-            transform: scale(1.05);
-        }
+        .menu-btn:hover { transform: scale(1.05); }
 
-        #map-screen {
-            background-image: url('images/menu.jpg');
-        }
+        #map-screen { background-image: url('images/menu.jpg'); }
 
         .map-container {
             flex: 1;
             display: flex;
             flex-direction: column;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             max-width: 400px;
             margin: 0 auto;
         }
@@ -98,8 +92,8 @@
             background: rgba(0,0,0,0.7);
             color: white;
             border: 3px solid #666;
-            padding: 15px;
-            font-size: 16px;
+            padding: 14px;
+            font-size: 15px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.3s;
@@ -110,14 +104,8 @@
             background: rgba(76,175,80,0.3);
         }
 
-        .map-btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        .map-btn.completed {
-            border-color: #4CAF50;
-        }
+        .map-btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        .map-btn.completed { border-color: #4CAF50; }
 
         #question-screen {
             background-size: cover;
@@ -130,11 +118,12 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
+            overflow-y: auto;
         }
 
         .question-box {
             background: rgba(0,0,0,0.85);
-            padding: 25px;
+            padding: 20px;
             border-radius: 15px;
             max-width: 500px;
             width: 100%;
@@ -142,31 +131,65 @@
         }
 
         .question-progress {
-            font-size: 16px;
+            font-size: 14px;
             color: #aaa;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .question-text {
-            font-size: 20px;
+            font-size: 18px;
             line-height: 1.6;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         .question-hint {
-            font-size: 14px;
+            font-size: 13px;
             color: #88ccff;
+            margin-bottom: 12px;
+        }
+
+        .stage-indicator {
+            background: #333;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 13px;
+            color: #ffd700;
+            margin-bottom: 12px;
+            display: inline-block;
+        }
+
+        .example-box {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .example-label {
+            color: #88ccff;
+            font-size: 13px;
+            margin-bottom: 5px;
+        }
+
+        .example-text {
+            font-size: 16px;
+        }
+
+        .template-text {
+            font-size: 18px;
+            color: #ffd700;
             margin-bottom: 15px;
         }
 
         .canvas-container {
             background: white;
             border-radius: 10px;
-            padding: 10px;
-            margin-bottom: 15px;
+            padding: 8px;
+            margin-bottom: 12px;
         }
 
-        #writing-canvas {
+        .writing-canvas {
             border: 3px solid #4CAF50;
             border-radius: 8px;
             background: #fffef0;
@@ -177,105 +200,130 @@
             display: flex;
             gap: 10px;
             justify-content: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
         }
 
         .canvas-btn {
-            padding: 12px 25px;
-            font-size: 16px;
+            padding: 10px 20px;
+            font-size: 15px;
             border: none;
             border-radius: 8px;
             cursor: pointer;
         }
 
-        .clear-btn {
-            background: #666;
-            color: white;
+        .clear-btn { background: #666; color: white; }
+        .done-btn { background: linear-gradient(180deg, #2196F3, #1565C0); color: white; }
+
+        /* 多格手寫區域 */
+        .multi-canvas-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin-bottom: 15px;
         }
 
-        .done-btn {
-            background: linear-gradient(180deg, #2196F3, #1565C0);
-            color: white;
+        .single-blank {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .blank-label {
+            font-size: 13px;
+            color: #aaa;
+            margin-bottom: 5px;
+        }
+
+        .blank-canvas-wrap {
+            background: white;
+            border-radius: 8px;
+            padding: 5px;
+        }
+
+        .blank-canvas {
+            border: 2px solid #4CAF50;
+            border-radius: 6px;
+            background: #fffef0;
+            touch-action: none;
         }
 
         .answer-reveal {
             background: rgba(255,255,255,0.1);
-            padding: 20px;
+            padding: 15px;
             border-radius: 10px;
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .correct-answer {
-            font-size: 36px;
-            margin: 15px 0;
+            font-size: 28px;
+            margin: 12px 0;
             color: #4CAF50;
+        }
+
+        .answers-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            margin: 15px 0;
+        }
+
+        .answer-item {
+            background: #2E7D32;
+            padding: 8px 15px;
+            border-radius: 8px;
+            font-size: 18px;
         }
 
         .confirm-buttons {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             justify-content: center;
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
         .confirm-btn {
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 25px;
+            font-size: 16px;
             border: none;
             border-radius: 10px;
             cursor: pointer;
         }
 
-        .correct-btn {
-            background: linear-gradient(180deg, #4CAF50, #2E7D32);
-            color: white;
-        }
-
-        .wrong-btn {
-            background: linear-gradient(180deg, #f44336, #c62828);
-            color: white;
-        }
+        .correct-btn { background: linear-gradient(180deg, #4CAF50, #2E7D32); color: white; }
+        .wrong-btn { background: linear-gradient(180deg, #f44336, #c62828); color: white; }
 
         .answer-options {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
-            margin-bottom: 20px;
+            gap: 8px;
+            margin-bottom: 15px;
         }
 
         .option-btn {
             background: #333;
             color: white;
             border: 2px solid #555;
-            padding: 15px;
-            font-size: 16px;
+            padding: 12px;
+            font-size: 15px;
             border-radius: 10px;
             cursor: pointer;
             transition: all 0.2s;
         }
 
-        .option-btn:hover {
-            border-color: #4CAF50;
-            background: #444;
-        }
+        .option-btn:hover { border-color: #4CAF50; background: #444; }
 
         .feedback {
-            margin-top: 15px;
-            font-size: 20px;
-            min-height: 30px;
+            margin-top: 12px;
+            font-size: 18px;
+            min-height: 25px;
         }
 
-        .feedback.correct {
-            color: #4CAF50;
-        }
+        .feedback.correct { color: #4CAF50; }
+        .feedback.wrong { color: #f44336; }
 
-        .feedback.wrong {
-            color: #f44336;
-        }
-
-        #shop-screen {
-            background-image: url('images/shop.jpg');
-        }
+        #shop-screen { background-image: url('images/shop.jpg'); }
 
         .shop-container {
             flex: 1;
@@ -288,76 +336,50 @@
 
         .shop-item {
             background: rgba(0,0,0,0.8);
-            padding: 15px 20px;
-            margin: 8px 0;
+            padding: 12px 15px;
+            margin: 6px 0;
             border-radius: 10px;
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .shop-item-info {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            font-size: 18px;
-        }
-
-        .shop-item-icon {
-            font-size: 30px;
-        }
+        .shop-item-info { display: flex; align-items: center; gap: 8px; font-size: 16px; }
+        .shop-item-icon { font-size: 26px; }
 
         .buy-btn {
             background: linear-gradient(180deg, #FF9800, #F57C00);
             color: white;
             border: none;
-            padding: 10px 20px;
-            font-size: 16px;
+            padding: 8px 16px;
+            font-size: 14px;
             border-radius: 8px;
             cursor: pointer;
         }
 
-        .buy-btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-        }
+        .buy-btn:disabled { background: #666; cursor: not-allowed; }
 
         .back-btn {
             background: #555;
             color: white;
             border: none;
-            padding: 15px 30px;
-            font-size: 18px;
+            padding: 12px 25px;
+            font-size: 16px;
             border-radius: 10px;
             cursor: pointer;
-            margin-top: 20px;
+            margin-top: 15px;
         }
 
         .inventory {
             background: rgba(0,0,0,0.7);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            margin-top: 15px;
+            margin-top: 12px;
         }
 
-        .inventory-title {
-            font-size: 16px;
-            color: #aaa;
-            margin-bottom: 10px;
-        }
-
-        .inventory-items {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .inv-item {
-            background: #333;
-            padding: 8px 12px;
-            border-radius: 8px;
-            font-size: 16px;
-        }
+        .inventory-title { font-size: 14px; color: #aaa; margin-bottom: 8px; }
+        .inventory-items { display: flex; flex-wrap: wrap; gap: 8px; }
+        .inv-item { background: #333; padding: 6px 10px; border-radius: 8px; font-size: 14px; }
 
         #monster-screen {
             background: rgba(0,0,0,0.9);
@@ -368,59 +390,38 @@
         .monster-box {
             background: rgba(50,0,0,0.9);
             border: 3px solid #aa0000;
-            padding: 40px;
+            padding: 30px;
             border-radius: 20px;
             text-align: center;
-            max-width: 400px;
+            max-width: 350px;
         }
 
-        .monster-icon {
-            font-size: 80px;
-            margin-bottom: 20px;
-        }
-
-        .monster-name {
-            font-size: 28px;
-            color: #ff6666;
-            margin-bottom: 15px;
-        }
-
-        .monster-desc {
-            font-size: 16px;
-            color: #ccc;
-            margin-bottom: 20px;
-        }
-
-        .monster-actions {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
+        .monster-icon { font-size: 70px; margin-bottom: 15px; }
+        .monster-name { font-size: 24px; color: #ff6666; margin-bottom: 12px; }
+        .monster-desc { font-size: 14px; color: #ccc; margin-bottom: 15px; }
+        .monster-actions { display: flex; flex-direction: column; gap: 8px; }
 
         .monster-btn {
             background: linear-gradient(180deg, #aa0000, #660000);
             color: white;
             border: none;
-            padding: 15px;
-            font-size: 18px;
+            padding: 12px;
+            font-size: 16px;
             border-radius: 10px;
             cursor: pointer;
         }
 
-        .monster-btn:disabled {
-            background: #444;
-            cursor: not-allowed;
-        }
+        .monster-btn:disabled { background: #444; cursor: not-allowed; }
 
         .reading-passage {
             background: rgba(255,255,255,0.1);
-            padding: 15px;
+            padding: 12px;
             border-radius: 10px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: left;
-            line-height: 1.8;
-            font-size: 16px;
-            max-height: 180px;
+            line-height: 1.7;
+            font-size: 15px;
+            max-height: 150px;
             overflow-y: auto;
         }
 
@@ -431,27 +432,10 @@
             text-align: center;
         }
 
-        .gameover-box {
-            padding: 40px;
-        }
-
-        .gameover-title {
-            font-size: 36px;
-            color: #f44336;
-            margin-bottom: 20px;
-        }
-
-        .gameover-reason {
-            font-size: 20px;
-            color: #ccc;
-            margin-bottom: 30px;
-        }
-
-        .victory-title {
-            font-size: 36px;
-            color: #4CAF50;
-            margin-bottom: 20px;
-        }
+        .gameover-box { padding: 30px; }
+        .gameover-title { font-size: 32px; color: #f44336; margin-bottom: 15px; }
+        .gameover-reason { font-size: 18px; color: #ccc; margin-bottom: 25px; }
+        .victory-title { font-size: 32px; color: #4CAF50; margin-bottom: 15px; }
     </style>
 </head>
 <body>
@@ -464,8 +448,8 @@
     <!-- 地圖選擇 -->
     <div id="map-screen" class="screen">
         <div class="status-bar">
-            <span class="status-item">💎 寶石：<span id="gems-display">0</span></span>
-            <span class="status-item">🍙 食物：<span id="food-display">0</span></span>
+            <span class="status-item">💎 <span id="gems-display">0</span></span>
+            <span class="status-item">🍙 <span id="food-display">0</span></span>
         </div>
         <div class="inventory">
             <div class="inventory-title">🎒 背包</div>
@@ -474,7 +458,7 @@
         <div class="map-container">
             <button class="map-btn" id="map-cabin" onclick="enterMap('cabin')">🏚️ 字林小屋（生字填空）</button>
             <button class="map-btn" id="map-swamp" onclick="enterMap('swamp')">🐸 錯字沼澤（改錯字）</button>
-            <button class="map-btn" id="map-temple" onclick="enterMap('temple')">🏛️ 部首神殿（部首筆畫造詞）</button>
+            <button class="map-btn" id="map-temple" onclick="enterMap('temple')">🏛️ 部首神殿（筆畫·部首·造詞）</button>
             <button class="map-btn" id="map-sound" onclick="enterMap('sound')">🎵 讀音森林（不同讀音）</button>
             <button class="map-btn" id="map-sentence" onclick="enterMap('sentence')">✏️ 造句山谷（照樣造句）</button>
             <button class="map-btn" id="map-maze" onclick="enterMap('maze')">🌙 閱讀迷宮（閱讀測驗）</button>
@@ -485,13 +469,15 @@
     <!-- 題目畫面 -->
     <div id="question-screen" class="screen">
         <div class="status-bar">
-            <span class="status-item">💎 寶石：<span id="gems-display2">0</span></span>
-            <span class="status-item">🍙 食物：<span id="food-display2">0</span></span>
+            <span class="status-item">💎 <span id="gems-display2">0</span></span>
+            <span class="status-item">🍙 <span id="food-display2">0</span></span>
         </div>
         <div class="question-container">
             <div class="question-box">
                 <div class="question-progress" id="progress-display"></div>
+                <div id="stage-display"></div>
                 <div id="reading-passage-container"></div>
+                <div id="example-container"></div>
                 <div class="question-text" id="question-text"></div>
                 <div class="question-hint" id="question-hint"></div>
                 <div id="answer-area"></div>
@@ -503,8 +489,8 @@
     <!-- 商店 -->
     <div id="shop-screen" class="screen">
         <div class="status-bar">
-            <span class="status-item">💎 寶石：<span id="gems-display3">0</span></span>
-            <span class="status-item">🍙 食物：<span id="food-display3">0</span></span>
+            <span class="status-item">💎 <span id="gems-display3">0</span></span>
+            <span class="status-item">🍙 <span id="food-display3">0</span></span>
         </div>
         <div class="inventory">
             <div class="inventory-title">🎒 背包</div>
@@ -528,8 +514,8 @@
                 <button class="buy-btn" onclick="buyItem('kunai')">10 💎</button>
             </div>
             <div class="shop-item">
-                <div class="shop-item-info"><span class="shop-item-icon">🧵</span> 合成毛皮（低等毛皮 ×2）</div>
-                <button class="buy-btn" onclick="craftFur()">合成</button>
+                <div class="shop-item-info"><span class="shop-item-icon">🧵</span> 合成毛皮</div>
+                <button class="buy-btn" onclick="craftFur()">低等×2</button>
             </div>
             <button class="back-btn" onclick="closeShop()">返回地圖</button>
         </div>
@@ -558,8 +544,8 @@
     <div id="victory-screen" class="screen">
         <div class="gameover-box">
             <h1 class="victory-title">🎉 恭喜過關！</h1>
-            <p style="font-size: 20px; margin-bottom: 30px;">你成功在森林中生存下來！</p>
-            <p style="font-size: 18px; color: #aaa;" id="final-stats"></p>
+            <p style="font-size: 18px; margin-bottom: 25px;">你成功在森林中生存下來！</p>
+            <p style="font-size: 16px; color: #aaa;" id="final-stats"></p>
             <button class="menu-btn" onclick="location.reload()">再玩一次</button>
         </div>
     </div>
@@ -568,7 +554,6 @@
         // ==================== 題庫 ====================
         
         const questions = {
-            // 一、生字填空（20題，每題1分）
             cabin: [
                 { q: "（ㄎㄜˋ）家文化園區", a: "客" },
                 { q: "（ㄊㄧˇ）驗活動", a: "體" },
@@ -592,25 +577,57 @@
                 { q: "（ㄖㄣˋ）識新朋友", a: "認" }
             ],
 
-            // 二、改錯字（5題，每題2分）
             swamp: [
-                { q: "媽媽買了很多新鮮的食「才」。", wrong: "才", a: "材" },
-                { q: "妹妹喜歡吃脆脆的海「台」。", wrong: "台", a: "苔" },
-                { q: "大家一「口」同聲回答正確答案。", wrong: "口", a: "異" },
-                { q: "弟弟不小心打「番」了牛奶。", wrong: "番", a: "翻" },
-                { q: "哥哥「岡」才扭到腳了。", wrong: "岡", a: "剛" }
+                { q: "媽媽買了很多新鮮的食「才」。", a: "材" },
+                { q: "妹妹喜歡吃脆脆的海「台」。", a: "苔" },
+                { q: "大家一「口」同聲回答正確答案。", a: "異" },
+                { q: "弟弟不小心打「番」了牛奶。", a: "翻" },
+                { q: "哥哥「岡」才扭到腳了。", a: "剛" }
             ],
 
-            // 三、部首筆畫造詞（5題，每題4分）
             temple: [
-                { q: "變", a: "23畫｜言部｜變成", hint: "請寫出：筆畫數、部首、造詞" },
-                { q: "剛", a: "10畫｜刀部｜剛才", hint: "請寫出：筆畫數、部首、造詞" },
-                { q: "緊", a: "15畫｜糸部｜緊張", hint: "請寫出：筆畫數、部首、造詞" },
-                { q: "享", a: "8畫｜亠部｜分享", hint: "請寫出：筆畫數、部首、造詞" },
-                { q: "平", a: "5畫｜干部｜平安", hint: "請寫出：筆畫數、部首、造詞" }
+                { 
+                    word: "變",
+                    stages: [
+                        { q: "請問「變」這個字有幾畫？", a: "23", hint: "數一數筆畫" },
+                        { q: "請問「變」的部首是什麼？", a: "言", hint: "寫出部首" },
+                        { q: "請用「變」造一個詞", a: "變成", hint: "例如：變化、改變..." }
+                    ]
+                },
+                { 
+                    word: "剛",
+                    stages: [
+                        { q: "請問「剛」這個字有幾畫？", a: "10", hint: "數一數筆畫" },
+                        { q: "請問「剛」的部首是什麼？", a: "刀", hint: "寫出部首" },
+                        { q: "請用「剛」造一個詞", a: "剛才", hint: "例如：剛好、剛強..." }
+                    ]
+                },
+                { 
+                    word: "緊",
+                    stages: [
+                        { q: "請問「緊」這個字有幾畫？", a: "15", hint: "數一數筆畫" },
+                        { q: "請問「緊」的部首是什麼？", a: "糸", hint: "寫出部首" },
+                        { q: "請用「緊」造一個詞", a: "緊張", hint: "例如：抓緊、要緊..." }
+                    ]
+                },
+                { 
+                    word: "享",
+                    stages: [
+                        { q: "請問「享」這個字有幾畫？", a: "8", hint: "數一數筆畫" },
+                        { q: "請問「享」的部首是什麼？", a: "亠", hint: "寫出部首" },
+                        { q: "請用「享」造一個詞", a: "分享", hint: "例如：享受、享用..." }
+                    ]
+                },
+                { 
+                    word: "平",
+                    stages: [
+                        { q: "請問「平」這個字有幾畫？", a: "5", hint: "數一數筆畫" },
+                        { q: "請問「平」的部首是什麼？", a: "干", hint: "寫出部首" },
+                        { q: "請用「平」造一個詞", a: "平安", hint: "例如：公平、和平..." }
+                    ]
+                }
             ],
 
-            // 四、不同讀音（5題，每題2分）
             sound: [
                 { 
                     q: "「種」：爸爸在田裡（  ）下百合花的（  ）子。", 
@@ -639,14 +656,30 @@
                 }
             ],
 
-            // 五、照樣造句（3題，每題2分）
             sentence: [
-                { q: "例：太陽一出來，立刻暖洋洋。\n請造句：（  ）一（  ），立刻（  ）。", a: "月亮一進去，立刻閒得發慌", hint: "請仿照例句造一個句子" },
-                { q: "例：濃濃的香味\n請造句：（  ）的（  ）", a: "淡淡的香氣", hint: "請仿照例句造一個詞組" },
-                { q: "例：有了陽光，花朵更美麗了。\n請造句：有了（  ），（  ）更（  ）了。", a: "有了故事，春捲更美味了", hint: "請仿照例句造一個句子" }
+                { 
+                    example: "太陽一出來，立刻暖洋洋。",
+                    template: "（ ① ）一（ ② ），立刻（ ③ ）。",
+                    blanks: 3,
+                    answers: ["月亮", "進去", "閒得發慌"],
+                    hints: ["填入一個名詞", "填入一個動作", "填入一個狀態"]
+                },
+                { 
+                    example: "濃濃的香味",
+                    template: "（ ① ）的（ ② ）",
+                    blanks: 2,
+                    answers: ["淡淡", "香氣"],
+                    hints: ["填入形容詞", "填入名詞"]
+                },
+                { 
+                    example: "有了陽光，花朵更美麗了。",
+                    template: "有了（ ① ），（ ② ）更（ ③ ）了。",
+                    blanks: 3,
+                    answers: ["故事", "春捲", "美味"],
+                    hints: ["填入一個名詞", "填入一個名詞", "填入形容詞"]
+                }
             ],
 
-            // 六、閱讀測驗（3題，每題2分）
             maze: {
                 passage: "很久以前，有一隻小青蛙住在一口古井裡。有一天，牠遇到一隻大烏龜。大烏龜告訴小青蛙：「我的家在大海，海比古井大得多，游來游去看不到邊界。」小青蛙聽呆了，才知道自己的世界是多麼的小。",
                 questions: [
@@ -675,15 +708,6 @@
             maze: "閱讀迷宮"
         };
 
-        const gemsPerMap = {
-            cabin: 1,
-            swamp: 2,
-            temple: 4,
-            sound: 2,
-            sentence: 2,
-            maze: 2
-        };
-
         const monsters = {
             wolf: {
                 name: "Wolf 🐺",
@@ -697,15 +721,15 @@
             alphaWolf: {
                 name: "Alpha Wolf 🐺👑",
                 icon: "🐺",
-                desc: "狼王出現了！比普通狼更強大！",
+                desc: "狼王出現了！",
                 actions: [
-                    { text: "🗡️ 用苦無 ×2 打倒", requires: { kunai: 2 }, consumes: { kunai: 2 }, drops: { fur: 1 } }
+                    { text: "🗡️ 苦無 ×2 打倒", requires: { kunai: 2 }, consumes: { kunai: 2 }, drops: { fur: 1 } }
                 ]
             },
             polarBear: {
                 name: "北極熊 🐻‍❄️",
                 icon: "🐻‍❄️",
-                desc: "巨大的北極熊！需要完整裝備才能對抗！",
+                desc: "巨大的北極熊！",
                 actions: [
                     { text: "🗡️🧥🐰 全力攻擊", requires: { kunai: 2, fur: 1, rabbitHorn: 1 }, consumes: { kunai: 2, fur: 1, rabbitHorn: 1 }, drops: { sword: 1 } }
                 ]
@@ -721,13 +745,13 @@
             completedMaps: [],
             currentMap: null,
             currentQuestionIndex: 0,
+            currentStageIndex: 0,
+            templeStageCorrect: 0,
             retryUsed: false,
             mapsCleared: 0
         };
 
-        let canvas, ctx;
-        let isDrawing = false;
-        let lastX = 0, lastY = 0;
+        let canvasContexts = [];
 
         // ==================== 畫面切換 ====================
         
@@ -752,12 +776,12 @@
 
         function updateInventoryDisplay() {
             const items = [];
-            if (gameState.inventory.torch > 0) items.push(`🔥 ×${gameState.inventory.torch}`);
-            if (gameState.inventory.rabbitHorn > 0) items.push(`🐰 ×${gameState.inventory.rabbitHorn}`);
-            if (gameState.inventory.kunai > 0) items.push(`🗡️ ×${gameState.inventory.kunai}`);
-            if (gameState.inventory.lowFur > 0) items.push(`🧶 ×${gameState.inventory.lowFur}`);
-            if (gameState.inventory.fur > 0) items.push(`🧥 ×${gameState.inventory.fur}`);
-            if (gameState.inventory.sword > 0) items.push(`⚔️ ×${gameState.inventory.sword}`);
+            if (gameState.inventory.torch > 0) items.push(`🔥×${gameState.inventory.torch}`);
+            if (gameState.inventory.rabbitHorn > 0) items.push(`🐰×${gameState.inventory.rabbitHorn}`);
+            if (gameState.inventory.kunai > 0) items.push(`🗡️×${gameState.inventory.kunai}`);
+            if (gameState.inventory.lowFur > 0) items.push(`🧶×${gameState.inventory.lowFur}`);
+            if (gameState.inventory.fur > 0) items.push(`🧥×${gameState.inventory.fur}`);
+            if (gameState.inventory.sword > 0) items.push(`⚔️×${gameState.inventory.sword}`);
             
             const html = items.length > 0 
                 ? items.map(i => `<span class="inv-item">${i}</span>`).join('')
@@ -774,123 +798,124 @@
                 const btn = document.getElementById(`map-${map}`);
                 if (btn && gameState.completedMaps.includes(map)) {
                     btn.classList.add('completed');
-                    if (!btn.textContent.includes('✅')) {
-                        btn.textContent = btn.textContent + ' ✅';
-                    }
+                    if (!btn.textContent.includes('✅')) btn.textContent += ' ✅';
                 }
             });
         }
 
-        // ==================== 遊戲開始 ====================
-        
         function startGame() {
             gameState = {
-                gems: 0,
-                food: 2,
+                gems: 0, food: 2,
                 inventory: { torch: 0, rabbitHorn: 0, kunai: 0, lowFur: 0, fur: 0, sword: 0 },
-                completedMaps: [],
-                currentMap: null,
-                currentQuestionIndex: 0,
-                retryUsed: false,
-                mapsCleared: 0
+                completedMaps: [], currentMap: null, currentQuestionIndex: 0,
+                currentStageIndex: 0, templeStageCorrect: 0, retryUsed: false, mapsCleared: 0
             };
             showScreen('map-screen');
         }
 
-        // ==================== 地圖 ====================
-        
         function enterMap(mapId) {
             if (gameState.completedMaps.includes(mapId)) {
                 alert('這個地圖已經完成了！');
                 return;
             }
-            
             gameState.currentMap = mapId;
             gameState.currentQuestionIndex = 0;
+            gameState.currentStageIndex = 0;
+            gameState.templeStageCorrect = 0;
             gameState.retryUsed = false;
             
-            const screen = document.getElementById('question-screen');
-            screen.style.backgroundImage = `url('${mapBackgrounds[mapId]}')`;
-            
+            document.getElementById('question-screen').style.backgroundImage = `url('${mapBackgrounds[mapId]}')`;
             showScreen('question-screen');
             showQuestion();
         }
 
         // ==================== 手寫畫布 ====================
 
-        function initCanvas() {
-            canvas = document.getElementById('writing-canvas');
-            if (!canvas) return;
+        function initSingleCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (!canvas) return null;
             
-            ctx = canvas.getContext('2d');
+            const ctx = canvas.getContext('2d');
             ctx.strokeStyle = '#000';
-            ctx.lineWidth = 6;
+            ctx.lineWidth = 5;
             ctx.lineCap = 'round';
             ctx.lineJoin = 'round';
 
-            canvas.addEventListener('mousedown', startDrawing);
-            canvas.addEventListener('mousemove', draw);
-            canvas.addEventListener('mouseup', stopDrawing);
-            canvas.addEventListener('mouseout', stopDrawing);
-            canvas.addEventListener('touchstart', handleTouchStart);
-            canvas.addEventListener('touchmove', handleTouchMove);
-            canvas.addEventListener('touchend', stopDrawing);
+            let isDrawing = false;
+            let lastX = 0, lastY = 0;
+
+            canvas.addEventListener('mousedown', (e) => {
+                isDrawing = true;
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            });
+            canvas.addEventListener('mousemove', (e) => {
+                if (!isDrawing) return;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(e.offsetX, e.offsetY);
+                ctx.stroke();
+                [lastX, lastY] = [e.offsetX, e.offsetY];
+            });
+            canvas.addEventListener('mouseup', () => isDrawing = false);
+            canvas.addEventListener('mouseout', () => isDrawing = false);
+
+            canvas.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                isDrawing = true;
+                lastX = touch.clientX - rect.left;
+                lastY = touch.clientY - rect.top;
+            });
+            canvas.addEventListener('touchmove', (e) => {
+                e.preventDefault();
+                if (!isDrawing) return;
+                const touch = e.touches[0];
+                const rect = canvas.getBoundingClientRect();
+                const x = touch.clientX - rect.left;
+                const y = touch.clientY - rect.top;
+                ctx.beginPath();
+                ctx.moveTo(lastX, lastY);
+                ctx.lineTo(x, y);
+                ctx.stroke();
+                lastX = x; lastY = y;
+            });
+            canvas.addEventListener('touchend', () => isDrawing = false);
+
+            return ctx;
         }
 
-        function startDrawing(e) {
-            isDrawing = true;
-            [lastX, lastY] = [e.offsetX, e.offsetY];
+        function clearAllCanvases() {
+            canvasContexts.forEach(ctx => {
+                if (ctx) ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+            });
         }
 
-        function draw(e) {
-            if (!isDrawing) return;
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(e.offsetX, e.offsetY);
-            ctx.stroke();
-            [lastX, lastY] = [e.offsetX, e.offsetY];
+        function clearSingleCanvas(canvasId) {
+            const canvas = document.getElementById(canvasId);
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
         }
 
-        function stopDrawing() {
-            isDrawing = false;
-        }
-
-        function handleTouchStart(e) {
-            e.preventDefault();
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            isDrawing = true;
-            lastX = touch.clientX - rect.left;
-            lastY = touch.clientY - rect.top;
-        }
-
-        function handleTouchMove(e) {
-            e.preventDefault();
-            if (!isDrawing) return;
-            const touch = e.touches[0];
-            const rect = canvas.getBoundingClientRect();
-            const x = touch.clientX - rect.left;
-            const y = touch.clientY - rect.top;
-            ctx.beginPath();
-            ctx.moveTo(lastX, lastY);
-            ctx.lineTo(x, y);
-            ctx.stroke();
-            lastX = x;
-            lastY = y;
-        }
-
-        function clearCanvas() {
-            if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
-        }
-
-        // ==================== 題目 ====================
+        // ==================== 題目顯示 ====================
         
         function showQuestion() {
             const mapId = gameState.currentMap;
-            let questionData, totalQuestions;
             
             document.getElementById('reading-passage-container').innerHTML = '';
+            document.getElementById('example-container').innerHTML = '';
             document.getElementById('question-hint').textContent = '';
+            document.getElementById('stage-display').innerHTML = '';
+            document.getElementById('feedback').textContent = '';
+            document.getElementById('feedback').className = 'feedback';
+            canvasContexts = [];
+            
+            if (mapId === 'temple') { showTempleQuestion(); return; }
+            if (mapId === 'sentence') { showSentenceQuestion(); return; }
+            
+            let questionData, totalQuestions;
             
             if (mapId === 'maze') {
                 questionData = questions.maze.questions[gameState.currentQuestionIndex];
@@ -906,8 +931,6 @@
                 `${mapNames[mapId]} - 第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
             
             document.getElementById('question-text').textContent = questionData.q;
-            document.getElementById('feedback').textContent = '';
-            document.getElementById('feedback').className = 'feedback';
             
             if (questionData.hint) {
                 document.getElementById('question-hint').textContent = questionData.hint;
@@ -915,30 +938,26 @@
             
             const answerArea = document.getElementById('answer-area');
             
-            // 手寫題：cabin, swamp, temple, sentence
-            if (['cabin', 'swamp', 'temple', 'sentence'].includes(mapId)) {
+            if (['cabin', 'swamp'].includes(mapId)) {
                 let extraInfo = '';
                 if (mapId === 'swamp') {
-                    extraInfo = `<p style="margin-bottom:10px; color:#ffaa00;">找出錯字「${questionData.wrong}」並寫出正確的字</p>`;
+                    extraInfo = `<p style="margin-bottom:10px; color:#ffaa00;">請找出錯字，並寫出正確的字</p>`;
                 }
-                
-                const canvasHeight = mapId === 'sentence' ? 250 : 200;
                 
                 answerArea.innerHTML = `
                     ${extraInfo}
                     <div class="canvas-container">
-                        <canvas id="writing-canvas" width="280" height="${canvasHeight}"></canvas>
+                        <canvas id="main-canvas" class="writing-canvas" width="250" height="180"></canvas>
                     </div>
                     <div class="canvas-buttons">
-                        <button class="canvas-btn clear-btn" onclick="clearCanvas()">清除</button>
+                        <button class="canvas-btn clear-btn" onclick="clearSingleCanvas('main-canvas')">清除</button>
                         <button class="canvas-btn done-btn" onclick="showAnswer()">我寫好了</button>
                     </div>
                     <div id="answer-reveal" style="display:none;"></div>
                 `;
-                setTimeout(initCanvas, 100);
+                setTimeout(() => { canvasContexts.push(initSingleCanvas('main-canvas')); }, 100);
                 
             } else {
-                // 選擇題：sound, maze
                 const optionsHtml = questionData.options.map(opt => 
                     `<button class="option-btn" onclick="selectOption('${opt}')">${opt}</button>`
                 ).join('');
@@ -946,10 +965,173 @@
             }
         }
 
+        // ==================== 造句山谷（多格手寫）====================
+        
+        function showSentenceQuestion() {
+            const questionData = questions.sentence[gameState.currentQuestionIndex];
+            const totalQuestions = questions.sentence.length;
+            
+            document.getElementById('progress-display').textContent = 
+                `${mapNames.sentence} - 第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
+            
+            document.getElementById('example-container').innerHTML = `
+                <div class="example-box">
+                    <div class="example-label">📖 例句：</div>
+                    <div class="example-text">${questionData.example}</div>
+                </div>
+            `;
+            
+            document.getElementById('question-text').innerHTML = `
+                <div class="template-text">${questionData.template}</div>
+            `;
+            
+            // 建立多個手寫格
+            let canvasesHtml = '<div class="multi-canvas-container">';
+            for (let i = 0; i < questionData.blanks; i++) {
+                canvasesHtml += `
+                    <div class="single-blank">
+                        <div class="blank-label">第 ${i + 1} 格</div>
+                        <div class="blank-canvas-wrap">
+                            <canvas id="blank-canvas-${i}" class="blank-canvas" width="120" height="100"></canvas>
+                        </div>
+                    </div>
+                `;
+            }
+            canvasesHtml += '</div>';
+            
+            document.getElementById('answer-area').innerHTML = `
+                ${canvasesHtml}
+                <div class="canvas-buttons">
+                    <button class="canvas-btn clear-btn" onclick="clearAllCanvases()">清除全部</button>
+                    <button class="canvas-btn done-btn" onclick="showSentenceAnswer()">我寫好了</button>
+                </div>
+                <div id="answer-reveal" style="display:none;"></div>
+            `;
+            
+            setTimeout(() => {
+                canvasContexts = [];
+                for (let i = 0; i < questionData.blanks; i++) {
+                    canvasContexts.push(initSingleCanvas(`blank-canvas-${i}`));
+                }
+            }, 100);
+        }
+
+        function showSentenceAnswer() {
+            const questionData = questions.sentence[gameState.currentQuestionIndex];
+            
+            let answersHtml = '<div class="answers-list">';
+            questionData.answers.forEach((ans, i) => {
+                answersHtml += `<span class="answer-item">第${i+1}格：${ans}</span>`;
+            });
+            answersHtml += '</div>';
+            
+            document.getElementById('answer-reveal').style.display = 'block';
+            document.getElementById('answer-reveal').innerHTML = `
+                <div class="answer-reveal">
+                    <p>正確答案：</p>
+                    ${answersHtml}
+                    <p style="margin-top:15px;">你寫對了嗎？</p>
+                    <div class="confirm-buttons">
+                        <button class="confirm-btn correct-btn" onclick="confirmAnswer(true, 2)">✅ 對 +2💎</button>
+                        <button class="confirm-btn wrong-btn" onclick="confirmAnswer(false, 2)">❌ 錯</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        // ==================== 部首神殿（三階段）====================
+        
+        function showTempleQuestion() {
+            const questionData = questions.temple[gameState.currentQuestionIndex];
+            const stageData = questionData.stages[gameState.currentStageIndex];
+            const totalQuestions = questions.temple.length;
+            const stageNames = ['筆畫', '部首', '造詞'];
+            
+            document.getElementById('progress-display').textContent = 
+                `${mapNames.temple} - 第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
+            
+            document.getElementById('stage-display').innerHTML = 
+                `<span class="stage-indicator">📝 階段 ${gameState.currentStageIndex + 1}/3：${stageNames[gameState.currentStageIndex]}</span>`;
+            
+            document.getElementById('question-text').textContent = stageData.q;
+            if (stageData.hint) document.getElementById('question-hint').textContent = stageData.hint;
+            
+            document.getElementById('answer-area').innerHTML = `
+                <div class="canvas-container">
+                    <canvas id="main-canvas" class="writing-canvas" width="250" height="130"></canvas>
+                </div>
+                <div class="canvas-buttons">
+                    <button class="canvas-btn clear-btn" onclick="clearSingleCanvas('main-canvas')">清除</button>
+                    <button class="canvas-btn done-btn" onclick="showTempleAnswer()">我寫好了</button>
+                </div>
+                <div id="answer-reveal" style="display:none;"></div>
+            `;
+            setTimeout(() => { canvasContexts = [initSingleCanvas('main-canvas')]; }, 100);
+        }
+
+        function showTempleAnswer() {
+            const questionData = questions.temple[gameState.currentQuestionIndex];
+            const stageData = questionData.stages[gameState.currentStageIndex];
+            
+            document.getElementById('answer-reveal').style.display = 'block';
+            document.getElementById('answer-reveal').innerHTML = `
+                <div class="answer-reveal">
+                    <p>正確答案：</p>
+                    <div class="correct-answer">${stageData.a}</div>
+                    <p>你寫對了嗎？</p>
+                    <div class="confirm-buttons">
+                        <button class="confirm-btn correct-btn" onclick="confirmTempleAnswer(true)">✅ 對</button>
+                        <button class="confirm-btn wrong-btn" onclick="confirmTempleAnswer(false)">❌ 錯</button>
+                    </div>
+                </div>
+            `;
+        }
+
+        function confirmTempleAnswer(isCorrect) {
+            const feedback = document.getElementById('feedback');
+            
+            if (isCorrect) {
+                gameState.templeStageCorrect++;
+                feedback.textContent = '✅ 正確！';
+                feedback.className = 'feedback correct';
+            } else {
+                feedback.textContent = '❌ 錯誤';
+                feedback.className = 'feedback wrong';
+            }
+            
+            gameState.currentStageIndex++;
+            
+            if (gameState.currentStageIndex < 3) {
+                setTimeout(() => showTempleQuestion(), 800);
+            } else {
+                const gems = Math.floor(gameState.templeStageCorrect * 4 / 3);
+                if (gems > 0) {
+                    gameState.gems += gems;
+                    feedback.textContent = `🎉 本題完成！+${gems} 💎`;
+                    feedback.className = 'feedback correct';
+                } else {
+                    feedback.textContent = '😢 本題沒得分，繼續加油！';
+                    feedback.className = 'feedback wrong';
+                }
+                updateDisplays();
+                
+                gameState.currentStageIndex = 0;
+                gameState.templeStageCorrect = 0;
+                gameState.currentQuestionIndex++;
+                
+                setTimeout(() => {
+                    if (gameState.currentQuestionIndex >= questions.temple.length) completeMap();
+                    else showTempleQuestion();
+                }, 1200);
+            }
+        }
+
+        // ==================== 一般答案 ====================
+
         function showAnswer() {
             const mapId = gameState.currentMap;
             const questionData = questions[mapId][gameState.currentQuestionIndex];
-            const gems = gemsPerMap[mapId];
+            const gems = mapId === 'cabin' ? 1 : 2;
             
             document.getElementById('answer-reveal').style.display = 'block';
             document.getElementById('answer-reveal').innerHTML = `
@@ -979,7 +1161,7 @@
                     feedback.textContent = '❌ 再試一次！';
                     feedback.className = 'feedback wrong';
                     gameState.retryUsed = true;
-                    clearCanvas();
+                    clearAllCanvases();
                     document.getElementById('answer-reveal').style.display = 'none';
                 } else {
                     feedback.textContent = '❌ 沒關係，繼續加油！';
@@ -993,16 +1175,16 @@
 
         function selectOption(option) {
             const mapId = gameState.currentMap;
-            let correctAnswer, gems;
+            let correctAnswer;
             
             if (mapId === 'maze') {
                 correctAnswer = questions.maze.questions[gameState.currentQuestionIndex].a;
             } else {
                 correctAnswer = questions[mapId][gameState.currentQuestionIndex].a;
             }
-            gems = gemsPerMap[mapId];
             
             const feedback = document.getElementById('feedback');
+            const gems = 2;
             
             if (option === correctAnswer) {
                 feedback.textContent = `✅ 正確！+${gems} 💎`;
@@ -1027,17 +1209,11 @@
 
         function nextQuestion() {
             const mapId = gameState.currentMap;
-            const totalQuestions = mapId === 'maze' 
-                ? questions.maze.questions.length 
-                : questions[mapId].length;
+            const total = mapId === 'maze' ? questions.maze.questions.length : questions[mapId].length;
             
             gameState.currentQuestionIndex++;
-            
-            if (gameState.currentQuestionIndex >= totalQuestions) {
-                completeMap();
-            } else {
-                showQuestion();
-            }
+            if (gameState.currentQuestionIndex >= total) completeMap();
+            else showQuestion();
         }
 
         function completeMap() {
@@ -1045,20 +1221,13 @@
             gameState.mapsCleared++;
             gameState.food--;
             
-            if (gameState.food < 0) {
-                gameOver('你餓死了！記得在商店購買食物。');
-                return;
-            }
-            
-            if (gameState.completedMaps.length >= 6) {
-                victory();
-                return;
-            }
+            if (gameState.food < 0) { gameOver('你餓死了！記得買食物。'); return; }
+            if (gameState.completedMaps.length >= 6) { victory(); return; }
             
             if (gameState.mapsCleared >= 3 && Math.random() < 0.6) {
                 triggerMonster();
             } else {
-                alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n消耗 1 食物\n剩餘食物：${gameState.food}`);
+                alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n消耗 1 食物\n剩餘：${gameState.food}`);
                 showScreen('map-screen');
             }
         }
@@ -1070,10 +1239,7 @@
 
         function buyItem(item) {
             const prices = { food: 3, torch: 4, rabbitHorn: 4, kunai: 10 };
-            if (gameState.gems < prices[item]) {
-                alert('寶石不足！');
-                return;
-            }
+            if (gameState.gems < prices[item]) { alert('寶石不足！'); return; }
             gameState.gems -= prices[item];
             if (item === 'food') gameState.food++;
             else gameState.inventory[item]++;
@@ -1087,7 +1253,7 @@
                 alert('合成成功！獲得毛皮 ×1');
                 updateDisplays();
             } else {
-                alert('需要低等毛皮 ×2 才能合成！');
+                alert('需要低等毛皮 ×2！');
             }
         }
 
@@ -1111,7 +1277,7 @@
             }).join('');
             
             document.getElementById('monster-actions').innerHTML = actionsHtml + 
-                `<button class="monster-btn" style="background:#333;" onclick="fleeMonster()">🏃 逃跑（損失一半寶石）</button>`;
+                `<button class="monster-btn" style="background:#333;" onclick="fleeMonster()">🏃 逃跑（-50%寶石）</button>`;
             
             showScreen('monster-screen');
         }
@@ -1132,17 +1298,17 @@
                     gameState.inventory[item] = (gameState.inventory[item] || 0) + action.drops[item];
                 }
                 const names = { lowFur: '低等毛皮', fur: '毛皮', sword: '劍' };
-                const text = Object.entries(action.drops).map(([k,v]) => `${names[k]} ×${v}`).join(', ');
+                const text = Object.entries(action.drops).map(([k,v]) => `${names[k]}×${v}`).join(', ');
                 alert(`🎉 成功！獲得：${text}`);
             } else {
-                alert('🎉 成功擊退怪物！');
+                alert('🎉 成功擊退！');
             }
             showScreen('map-screen');
         }
 
         function fleeMonster() {
             gameState.gems = Math.floor(gameState.gems / 2);
-            alert(`你逃跑了，損失一半寶石！\n剩餘寶石：${gameState.gems}`);
+            alert(`逃跑了！剩餘寶石：${gameState.gems}`);
             showScreen('map-screen');
         }
 
@@ -1155,7 +1321,7 @@
 
         function victory() {
             document.getElementById('final-stats').innerHTML = 
-                `最終寶石：${gameState.gems} 💎<br>收集到的劍：${gameState.inventory.sword} ⚔️`;
+                `最終寶石：${gameState.gems} 💎<br>劍：${gameState.inventory.sword} ⚔️`;
             showScreen('victory-screen');
         }
     </script>
