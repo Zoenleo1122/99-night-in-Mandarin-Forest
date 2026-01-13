@@ -5,11 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>森林生存國語挑戰</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
 
         body {
             font-family: 'Microsoft JhengHei', 'PingFang TC', sans-serif;
@@ -71,10 +67,7 @@
             cursor: pointer;
             margin: 10px;
             box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: transform 0.2s;
         }
-
-        .menu-btn:hover { transform: scale(1.05); }
 
         #map-screen { background-image: url('images/menu.jpg'); }
 
@@ -96,7 +89,6 @@
             font-size: 15px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
         }
 
         .map-btn:hover:not(:disabled) {
@@ -106,11 +98,6 @@
 
         .map-btn:disabled { opacity: 0.5; cursor: not-allowed; }
         .map-btn.completed { border-color: #4CAF50; }
-
-        #question-screen {
-            background-size: cover;
-            background-position: center;
-        }
 
         .question-container {
             flex: 1;
@@ -130,23 +117,9 @@
             text-align: center;
         }
 
-        .question-progress {
-            font-size: 14px;
-            color: #aaa;
-            margin-bottom: 12px;
-        }
-
-        .question-text {
-            font-size: 18px;
-            line-height: 1.6;
-            margin-bottom: 15px;
-        }
-
-        .question-hint {
-            font-size: 13px;
-            color: #88ccff;
-            margin-bottom: 12px;
-        }
+        .question-progress { font-size: 14px; color: #aaa; margin-bottom: 12px; }
+        .question-text { font-size: 18px; line-height: 1.6; margin-bottom: 15px; }
+        .question-hint { font-size: 13px; color: #88ccff; margin-bottom: 12px; }
 
         .stage-indicator {
             background: #333;
@@ -166,21 +139,9 @@
             text-align: left;
         }
 
-        .example-label {
-            color: #88ccff;
-            font-size: 13px;
-            margin-bottom: 5px;
-        }
-
-        .example-text {
-            font-size: 16px;
-        }
-
-        .template-text {
-            font-size: 18px;
-            color: #ffd700;
-            margin-bottom: 15px;
-        }
+        .example-label { color: #88ccff; font-size: 13px; margin-bottom: 5px; }
+        .example-text { font-size: 16px; }
+        .template-text { font-size: 18px; color: #ffd700; margin-bottom: 15px; }
 
         .canvas-container {
             background: white;
@@ -214,7 +175,6 @@
         .clear-btn { background: #666; color: white; }
         .done-btn { background: linear-gradient(180deg, #2196F3, #1565C0); color: white; }
 
-        /* 多格手寫區域 */
         .multi-canvas-container {
             display: flex;
             flex-wrap: wrap;
@@ -223,23 +183,9 @@
             margin-bottom: 15px;
         }
 
-        .single-blank {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .blank-label {
-            font-size: 13px;
-            color: #aaa;
-            margin-bottom: 5px;
-        }
-
-        .blank-canvas-wrap {
-            background: white;
-            border-radius: 8px;
-            padding: 5px;
-        }
+        .single-blank { display: flex; flex-direction: column; align-items: center; }
+        .blank-label { font-size: 13px; color: #aaa; margin-bottom: 5px; }
+        .blank-canvas-wrap { background: white; border-radius: 8px; padding: 5px; }
 
         .blank-canvas {
             border: 2px solid #4CAF50;
@@ -255,11 +201,7 @@
             margin-top: 12px;
         }
 
-        .correct-answer {
-            font-size: 28px;
-            margin: 12px 0;
-            color: #4CAF50;
-        }
+        .correct-answer { font-size: 28px; margin: 12px 0; color: #4CAF50; }
 
         .answers-list {
             display: flex;
@@ -309,17 +251,11 @@
             font-size: 15px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.2s;
         }
 
         .option-btn:hover { border-color: #4CAF50; background: #444; }
 
-        .feedback {
-            margin-top: 12px;
-            font-size: 18px;
-            min-height: 25px;
-        }
-
+        .feedback { margin-top: 12px; font-size: 18px; min-height: 25px; }
         .feedback.correct { color: #4CAF50; }
         .feedback.wrong { color: #f44336; }
 
@@ -381,6 +317,144 @@
         .inventory-items { display: flex; flex-wrap: wrap; gap: 8px; }
         .inv-item { background: #333; padding: 6px 10px; border-radius: 8px; font-size: 14px; }
 
+        .reading-passage {
+            background: rgba(255,255,255,0.1);
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 15px;
+            text-align: left;
+            line-height: 1.7;
+            font-size: 15px;
+            max-height: 150px;
+            overflow-y: auto;
+        }
+
+        /* 怪物預警 */
+        #warning-screen {
+            background: rgba(0,0,0,0.9);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .warning-box {
+            background: linear-gradient(180deg, #4a3000, #2a1a00);
+            border: 3px solid #ff9800;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 380px;
+            width: 95%;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 20px rgba(255,152,0,0.5); }
+            50% { box-shadow: 0 0 40px rgba(255,152,0,0.8); }
+        }
+
+        .warning-icon {
+            font-size: 50px;
+            margin-bottom: 10px;
+            animation: shake 0.5s infinite;
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .warning-title { font-size: 22px; color: #ff9800; margin-bottom: 10px; }
+        .warning-monster { font-size: 18px; color: #fff; margin-bottom: 15px; }
+        .warning-tip { font-size: 14px; color: #aaa; margin: 15px 0; }
+
+        .warning-requirements {
+            background: rgba(0,0,0,0.5);
+            border: 2px solid #ff9800;
+            border-radius: 10px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: left;
+        }
+
+        .warning-requirements-title {
+            font-size: 15px;
+            color: #ff9800;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+
+        .warning-requirement-item {
+            background: rgba(255,255,255,0.1);
+            padding: 10px;
+            border-radius: 8px;
+            margin: 8px 0;
+        }
+
+        .warning-requirement-items {
+            font-size: 15px;
+            color: #fff;
+            margin-bottom: 5px;
+        }
+
+        .warning-requirement-desc {
+            font-size: 12px;
+            color: #aaa;
+        }
+
+        .warning-requirement-cost {
+            font-size: 12px;
+            color: #ffd700;
+            margin-top: 3px;
+        }
+
+        .warning-or {
+            text-align: center;
+            color: #888;
+            font-size: 13px;
+            margin: 5px 0;
+        }
+
+        .warning-inventory {
+            background: rgba(0,100,0,0.3);
+            border: 1px solid #4CAF50;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 12px;
+        }
+
+        .warning-inventory-title {
+            font-size: 13px;
+            color: #4CAF50;
+            margin-bottom: 5px;
+        }
+
+        .warning-inventory-items {
+            font-size: 14px;
+            color: #fff;
+        }
+
+        .warning-buttons { display: flex; flex-direction: column; gap: 10px; }
+
+        .warning-btn {
+            padding: 14px 25px;
+            font-size: 16px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+
+        .warning-btn.shop-btn {
+            background: linear-gradient(180deg, #FF9800, #F57C00);
+            color: white;
+        }
+
+        .warning-btn.fight-btn {
+            background: linear-gradient(180deg, #aa0000, #660000);
+            color: white;
+        }
+
+        /* 怪物事件 */
         #monster-screen {
             background: rgba(0,0,0,0.9);
             justify-content: center;
@@ -413,19 +487,8 @@
 
         .monster-btn:disabled { background: #444; cursor: not-allowed; }
 
-        .reading-passage {
-            background: rgba(255,255,255,0.1);
-            padding: 12px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            text-align: left;
-            line-height: 1.7;
-            font-size: 15px;
-            max-height: 150px;
-            overflow-y: auto;
-        }
-
-        #gameover-screen {
+        /* 遊戲結束 */
+        #gameover-screen, #victory-screen {
             background: rgba(0,0,0,0.95);
             justify-content: center;
             align-items: center;
@@ -517,7 +580,22 @@
                 <div class="shop-item-info"><span class="shop-item-icon">🧵</span> 合成毛皮</div>
                 <button class="buy-btn" onclick="craftFur()">低等×2</button>
             </div>
-            <button class="back-btn" onclick="closeShop()">返回地圖</button>
+            <button class="back-btn" id="shop-back-btn" onclick="closeShop()">返回地圖</button>
+        </div>
+    </div>
+
+    <!-- 怪物預警 -->
+    <div id="warning-screen" class="screen">
+        <div class="warning-box">
+            <div class="warning-icon" id="warning-icon">⚠️</div>
+            <div class="warning-title" id="warning-title">夜晚即將來臨！</div>
+            <div class="warning-monster" id="warning-monster">🐺 Wolf 正在接近...</div>
+            <div class="warning-requirements" id="warning-requirements"></div>
+            <div class="warning-tip">請做好準備！</div>
+            <div class="warning-buttons">
+                <button class="warning-btn shop-btn" onclick="goToShopFromWarning()">🛒 進入商店準備</button>
+                <button class="warning-btn fight-btn" onclick="proceedToMonster()">⚔️ 直接面對</button>
+            </div>
         </div>
     </div>
 
@@ -552,7 +630,6 @@
 
     <script>
         // ==================== 題庫 ====================
-        
         const questions = {
             cabin: [
                 { q: "（ㄎㄜˋ）家文化園區", a: "客" },
@@ -576,7 +653,6 @@
                 { q: "非常（ㄖㄜˋ）鬧", a: "熱" },
                 { q: "（ㄖㄣˋ）識新朋友", a: "認" }
             ],
-
             swamp: [
                 { q: "媽媽買了很多新鮮的食「才」。", a: "材" },
                 { q: "妹妹喜歡吃脆脆的海「台」。", a: "苔" },
@@ -584,177 +660,124 @@
                 { q: "弟弟不小心打「番」了牛奶。", a: "翻" },
                 { q: "哥哥「岡」才扭到腳了。", a: "剛" }
             ],
-
             temple: [
-                { 
-                    word: "變",
-                    stages: [
-                        { q: "請問「變」這個字有幾畫？", a: "23", hint: "數一數筆畫" },
-                        { q: "請問「變」的部首是什麼？", a: "言", hint: "寫出部首" },
-                        { q: "請用「變」造一個詞", a: "變成", hint: "例如：變化、改變..." }
-                    ]
-                },
-                { 
-                    word: "剛",
-                    stages: [
-                        { q: "請問「剛」這個字有幾畫？", a: "10", hint: "數一數筆畫" },
-                        { q: "請問「剛」的部首是什麼？", a: "刀", hint: "寫出部首" },
-                        { q: "請用「剛」造一個詞", a: "剛才", hint: "例如：剛好、剛強..." }
-                    ]
-                },
-                { 
-                    word: "緊",
-                    stages: [
-                        { q: "請問「緊」這個字有幾畫？", a: "15", hint: "數一數筆畫" },
-                        { q: "請問「緊」的部首是什麼？", a: "糸", hint: "寫出部首" },
-                        { q: "請用「緊」造一個詞", a: "緊張", hint: "例如：抓緊、要緊..." }
-                    ]
-                },
-                { 
-                    word: "享",
-                    stages: [
-                        { q: "請問「享」這個字有幾畫？", a: "8", hint: "數一數筆畫" },
-                        { q: "請問「享」的部首是什麼？", a: "亠", hint: "寫出部首" },
-                        { q: "請用「享」造一個詞", a: "分享", hint: "例如：享受、享用..." }
-                    ]
-                },
-                { 
-                    word: "平",
-                    stages: [
-                        { q: "請問「平」這個字有幾畫？", a: "5", hint: "數一數筆畫" },
-                        { q: "請問「平」的部首是什麼？", a: "干", hint: "寫出部首" },
-                        { q: "請用「平」造一個詞", a: "平安", hint: "例如：公平、和平..." }
-                    ]
-                }
+                { word: "變", stages: [
+                    { q: "請問「變」有幾畫？", a: "23", hint: "數一數筆畫" },
+                    { q: "請問「變」的部首？", a: "言", hint: "寫出部首" },
+                    { q: "請用「變」造詞", a: "變成", hint: "例如：變化" }
+                ]},
+                { word: "剛", stages: [
+                    { q: "請問「剛」有幾畫？", a: "10", hint: "數一數筆畫" },
+                    { q: "請問「剛」的部首？", a: "刀", hint: "寫出部首" },
+                    { q: "請用「剛」造詞", a: "剛才", hint: "例如：剛好" }
+                ]},
+                { word: "緊", stages: [
+                    { q: "請問「緊」有幾畫？", a: "15", hint: "數一數筆畫" },
+                    { q: "請問「緊」的部首？", a: "糸", hint: "寫出部首" },
+                    { q: "請用「緊」造詞", a: "緊張", hint: "例如：抓緊" }
+                ]},
+                { word: "享", stages: [
+                    { q: "請問「享」有幾畫？", a: "8", hint: "數一數筆畫" },
+                    { q: "請問「享」的部首？", a: "亠", hint: "寫出部首" },
+                    { q: "請用「享」造詞", a: "分享", hint: "例如：享受" }
+                ]},
+                { word: "平", stages: [
+                    { q: "請問「平」有幾畫？", a: "5", hint: "數一數筆畫" },
+                    { q: "請問「平」的部首？", a: "干", hint: "寫出部首" },
+                    { q: "請用「平」造詞", a: "平安", hint: "例如：公平" }
+                ]}
             ],
-
             sound: [
-                { 
-                    q: "「種」：爸爸在田裡（  ）下百合花的（  ）子。", 
-                    options: ["ㄓㄨㄥˋ、ㄓㄨㄥˇ", "ㄓㄨㄥˇ、ㄓㄨㄥˋ", "ㄓㄨㄥˋ、ㄓㄨㄥˋ", "ㄓㄨㄥˇ、ㄓㄨㄥˇ"],
-                    a: "ㄓㄨㄥˋ、ㄓㄨㄥˇ"
-                },
-                { 
-                    q: "「好」：妹妹（  ）奇的想知道誰是她的（  ）朋友。", 
-                    options: ["ㄏㄠˋ、ㄏㄠˇ", "ㄏㄠˇ、ㄏㄠˋ", "ㄏㄠˋ、ㄏㄠˋ", "ㄏㄠˇ、ㄏㄠˇ"],
-                    a: "ㄏㄠˋ、ㄏㄠˇ"
-                },
-                { 
-                    q: "「長」：小草（  ）高了，它的葉子變得很（  ）。", 
-                    options: ["ㄓㄤˇ、ㄔㄤˊ", "ㄔㄤˊ、ㄓㄤˇ", "ㄓㄤˇ、ㄓㄤˇ", "ㄔㄤˊ、ㄔㄤˊ"],
-                    a: "ㄓㄤˇ、ㄔㄤˊ"
-                },
-                { 
-                    q: "「數」：他（  ）了一下書本的（  ）量。", 
-                    options: ["ㄕㄨˇ、ㄕㄨˋ", "ㄕㄨˋ、ㄕㄨˇ", "ㄕㄨˇ、ㄕㄨˇ", "ㄕㄨˋ、ㄕㄨˋ"],
-                    a: "ㄕㄨˇ、ㄕㄨˋ"
-                },
-                { 
-                    q: "「更」：（  ）換乾淨的衣服後，看起來（  ）加清爽。", 
-                    options: ["ㄍㄥ、ㄍㄥˋ", "ㄍㄥˋ、ㄍㄥ", "ㄍㄥ、ㄍㄥ", "ㄍㄥˋ、ㄍㄥˋ"],
-                    a: "ㄍㄥ、ㄍㄥˋ"
-                }
+                { q: "「種」：爸爸在田裡（  ）下百合花的（  ）子。", 
+                  options: ["ㄓㄨㄥˋ、ㄓㄨㄥˇ", "ㄓㄨㄥˇ、ㄓㄨㄥˋ", "ㄓㄨㄥˋ、ㄓㄨㄥˋ", "ㄓㄨㄥˇ、ㄓㄨㄥˇ"], a: "ㄓㄨㄥˋ、ㄓㄨㄥˇ" },
+                { q: "「好」：妹妹（  ）奇的想知道誰是她的（  ）朋友。", 
+                  options: ["ㄏㄠˋ、ㄏㄠˇ", "ㄏㄠˇ、ㄏㄠˋ", "ㄏㄠˋ、ㄏㄠˋ", "ㄏㄠˇ、ㄏㄠˇ"], a: "ㄏㄠˋ、ㄏㄠˇ" },
+                { q: "「長」：小草（  ）高了，葉子變得很（  ）。", 
+                  options: ["ㄓㄤˇ、ㄔㄤˊ", "ㄔㄤˊ、ㄓㄤˇ", "ㄓㄤˇ、ㄓㄤˇ", "ㄔㄤˊ、ㄔㄤˊ"], a: "ㄓㄤˇ、ㄔㄤˊ" },
+                { q: "「數」：他（  ）了一下書本的（  ）量。", 
+                  options: ["ㄕㄨˇ、ㄕㄨˋ", "ㄕㄨˋ、ㄕㄨˇ", "ㄕㄨˇ、ㄕㄨˇ", "ㄕㄨˋ、ㄕㄨˋ"], a: "ㄕㄨˇ、ㄕㄨˋ" },
+                { q: "「更」：（  ）換衣服後，看起來（  ）加清爽。", 
+                  options: ["ㄍㄥ、ㄍㄥˋ", "ㄍㄥˋ、ㄍㄥ", "ㄍㄥ、ㄍㄥ", "ㄍㄥˋ、ㄍㄥˋ"], a: "ㄍㄥ、ㄍㄥˋ" }
             ],
-
             sentence: [
-                { 
-                    example: "太陽一出來，立刻暖洋洋。",
-                    template: "（ ① ）一（ ② ），立刻（ ③ ）。",
-                    blanks: 3,
-                    answers: ["月亮", "進去", "閒得發慌"],
-                    hints: ["填入一個名詞", "填入一個動作", "填入一個狀態"]
-                },
-                { 
-                    example: "濃濃的香味",
-                    template: "（ ① ）的（ ② ）",
-                    blanks: 2,
-                    answers: ["淡淡", "香氣"],
-                    hints: ["填入形容詞", "填入名詞"]
-                },
-                { 
-                    example: "有了陽光，花朵更美麗了。",
-                    template: "有了（ ① ），（ ② ）更（ ③ ）了。",
-                    blanks: 3,
-                    answers: ["故事", "春捲", "美味"],
-                    hints: ["填入一個名詞", "填入一個名詞", "填入形容詞"]
-                }
+                { example: "太陽一出來，立刻暖洋洋。", template: "（①）一（②），立刻（③）。", blanks: 3, answers: ["月亮", "進去", "閒得發慌"] },
+                { example: "濃濃的香味", template: "（①）的（②）", blanks: 2, answers: ["淡淡", "香氣"] },
+                { example: "有了陽光，花朵更美麗了。", template: "有了（①），（②）更（③）了。", blanks: 3, answers: ["故事", "春捲", "美味"] }
             ],
-
             maze: {
                 passage: "很久以前，有一隻小青蛙住在一口古井裡。有一天，牠遇到一隻大烏龜。大烏龜告訴小青蛙：「我的家在大海，海比古井大得多，游來游去看不到邊界。」小青蛙聽呆了，才知道自己的世界是多麼的小。",
                 questions: [
-                    { q: "故事中的青蛙住在哪裡？", options: ["大海", "井底", "水草下"], a: "井底" },
-                    { q: "下面哪一個適合當這篇故事的題目？", options: ["井底之龜", "海底之蛙", "井底之蛙"], a: "井底之蛙" },
-                    { q: "這個故事主要是告訴我們什麼道理？", options: ["要多交朋友", "要多認識外面的世界", "大烏龜不愛玩"], a: "要多認識外面的世界" }
+                    { q: "青蛙住在哪裡？", options: ["大海", "井底", "水草下"], a: "井底" },
+                    { q: "適合當這篇故事的題目？", options: ["井底之龜", "海底之蛙", "井底之蛙"], a: "井底之蛙" },
+                    { q: "故事告訴我們什麼道理？", options: ["要多交朋友", "要多認識外面的世界", "大烏龜不愛玩"], a: "要多認識外面的世界" }
                 ]
             }
         };
 
         const mapBackgrounds = {
-            cabin: "images/cabin.jpg",
-            swamp: "images/swamp.jpg",
-            temple: "images/temple.jpg",
-            sound: "images/menu.jpg",
-            sentence: "images/menu.jpg",
-            maze: "images/maze.jpg"
+            cabin: "images/cabin.jpg", swamp: "images/swamp.jpg", temple: "images/temple.jpg",
+            sound: "images/menu.jpg", sentence: "images/menu.jpg", maze: "images/maze.jpg"
         };
 
         const mapNames = {
-            cabin: "字林小屋",
-            swamp: "錯字沼澤",
-            temple: "部首神殿",
-            sound: "讀音森林",
-            sentence: "造句山谷",
-            maze: "閱讀迷宮"
+            cabin: "字林小屋", swamp: "錯字沼澤", temple: "部首神殿",
+            sound: "讀音森林", sentence: "造句山谷", maze: "閱讀迷宮"
         };
 
-        const monsters = {
-            wolf: {
-                name: "Wolf 🐺",
-                icon: "🐺",
-                desc: "一隻灰狼出現了！",
-                actions: [
-                    { text: "🔥 用火把嚇走", requires: { torch: 1 }, consumes: { torch: 1 } },
-                    { text: "🗡️ 用苦無打倒", requires: { kunai: 1 }, consumes: { kunai: 1 }, drops: { lowFur: 1 } }
+        // 怪物出現規則
+        const monsterSchedule = {
+            3: { 
+                type: 'wolf', 
+                title: '🌙 夜晚即將來臨！', 
+                monster: '🐺 Wolf 正在接近...',
+                requirements: [
+                    { items: '🔥 火把 ×1', desc: '嚇走 Wolf', cost: '需要 4💎' },
+                    { items: '🗡️ 苦無 ×1', desc: '打倒 Wolf，可得低等毛皮', cost: '需要 10💎' }
                 ]
             },
-            alphaWolf: {
-                name: "Alpha Wolf 🐺👑",
-                icon: "🐺",
-                desc: "狼王出現了！",
-                actions: [
-                    { text: "🗡️ 苦無 ×2 打倒", requires: { kunai: 2 }, consumes: { kunai: 2 }, drops: { fur: 1 } }
+            5: { 
+                type: 'alphaWolf', 
+                title: '⚠️ 危險警報！', 
+                monster: '🐺👑 Alpha Wolf 正在逼近！',
+                requirements: [
+                    { items: '🗡️ 苦無 ×2', desc: '打倒 Alpha Wolf，可得毛皮', cost: '需要 20💎' }
                 ]
             },
-            polarBear: {
-                name: "北極熊 🐻‍❄️",
-                icon: "🐻‍❄️",
-                desc: "巨大的北極熊！",
-                actions: [
-                    { text: "🗡️🧥🐰 全力攻擊", requires: { kunai: 2, fur: 1, rabbitHorn: 1 }, consumes: { kunai: 2, fur: 1, rabbitHorn: 1 }, drops: { sword: 1 } }
+            6: { 
+                type: 'polarBear', 
+                title: '🚨 Boss 戰！', 
+                monster: '🐻‍❄️ 北極熊 出現了！',
+                requirements: [
+                    { items: '🗡️ 苦無×2 + 🧥 毛皮×1 + 🐰 兔子角×1', desc: '打倒北極熊，可得傳說之劍 ⚔️', cost: '毛皮需打倒 Alpha Wolf 獲得' }
                 ]
             }
         };
 
+        const monsters = {
+            wolf: { name: "Wolf 🐺", icon: "🐺", desc: "一隻灰狼出現了！", actions: [
+                { text: "🔥 火把嚇走", requires: { torch: 1 }, consumes: { torch: 1 } },
+                { text: "🗡️ 苦無打倒", requires: { kunai: 1 }, consumes: { kunai: 1 }, drops: { lowFur: 1 } }
+            ]},
+            alphaWolf: { name: "Alpha Wolf 🐺👑", icon: "🐺", desc: "狼王出現了！", actions: [
+                { text: "🗡️ 苦無×2 打倒", requires: { kunai: 2 }, consumes: { kunai: 2 }, drops: { fur: 1 } }
+            ]},
+            polarBear: { name: "北極熊 🐻‍❄️", icon: "🐻‍❄️", desc: "巨大的北極熊！", actions: [
+                { text: "🗡️🧥🐰 全力攻擊", requires: { kunai: 2, fur: 1, rabbitHorn: 1 }, consumes: { kunai: 2, fur: 1, rabbitHorn: 1 }, drops: { sword: 1 } }
+            ]}
+        };
+
         // ==================== 遊戲狀態 ====================
-        
         let gameState = {
-            gems: 0,
-            food: 2,
+            gems: 0, food: 1,
             inventory: { torch: 0, rabbitHorn: 0, kunai: 0, lowFur: 0, fur: 0, sword: 0 },
-            completedMaps: [],
-            currentMap: null,
-            currentQuestionIndex: 0,
-            currentStageIndex: 0,
-            templeStageCorrect: 0,
-            retryUsed: false,
-            mapsCleared: 0
+            completedMaps: [], currentMap: null, currentQuestionIndex: 0,
+            currentStageIndex: 0, templeStageCorrect: 0, retryUsed: false, mapsCleared: 0,
+            pendingMonster: null, fromWarningShop: false
         };
 
         let canvasContexts = [];
 
         // ==================== 畫面切換 ====================
-        
         function showScreen(screenId) {
             document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
             document.getElementById(screenId).classList.add('active');
@@ -783,18 +806,14 @@
             if (gameState.inventory.fur > 0) items.push(`🧥×${gameState.inventory.fur}`);
             if (gameState.inventory.sword > 0) items.push(`⚔️×${gameState.inventory.sword}`);
             
-            const html = items.length > 0 
-                ? items.map(i => `<span class="inv-item">${i}</span>`).join('')
-                : '<span class="inv-item">（空）</span>';
-            
+            const html = items.length > 0 ? items.map(i => `<span class="inv-item">${i}</span>`).join('') : '<span class="inv-item">（空）</span>';
             document.getElementById('inventory-display').innerHTML = html;
             const inv2 = document.getElementById('inventory-display2');
             if (inv2) inv2.innerHTML = html;
         }
 
         function updateMapButtons() {
-            const maps = ['cabin', 'swamp', 'temple', 'sound', 'sentence', 'maze'];
-            maps.forEach(map => {
+            ['cabin', 'swamp', 'temple', 'sound', 'sentence', 'maze'].forEach(map => {
                 const btn = document.getElementById(`map-${map}`);
                 if (btn && gameState.completedMaps.includes(map)) {
                     btn.classList.add('completed');
@@ -805,412 +824,220 @@
 
         function startGame() {
             gameState = {
-                gems: 0, food: 2,
+                gems: 0, food: 1,
                 inventory: { torch: 0, rabbitHorn: 0, kunai: 0, lowFur: 0, fur: 0, sword: 0 },
                 completedMaps: [], currentMap: null, currentQuestionIndex: 0,
-                currentStageIndex: 0, templeStageCorrect: 0, retryUsed: false, mapsCleared: 0
+                currentStageIndex: 0, templeStageCorrect: 0, retryUsed: false, mapsCleared: 0,
+                pendingMonster: null, fromWarningShop: false
             };
             showScreen('map-screen');
         }
 
         function enterMap(mapId) {
-            if (gameState.completedMaps.includes(mapId)) {
-                alert('這個地圖已經完成了！');
-                return;
-            }
+            if (gameState.completedMaps.includes(mapId)) { alert('已完成！'); return; }
             gameState.currentMap = mapId;
             gameState.currentQuestionIndex = 0;
             gameState.currentStageIndex = 0;
             gameState.templeStageCorrect = 0;
             gameState.retryUsed = false;
-            
             document.getElementById('question-screen').style.backgroundImage = `url('${mapBackgrounds[mapId]}')`;
             showScreen('question-screen');
             showQuestion();
         }
 
         // ==================== 手寫畫布 ====================
-
         function initSingleCanvas(canvasId) {
             const canvas = document.getElementById(canvasId);
             if (!canvas) return null;
-            
             const ctx = canvas.getContext('2d');
-            ctx.strokeStyle = '#000';
-            ctx.lineWidth = 5;
-            ctx.lineCap = 'round';
-            ctx.lineJoin = 'round';
+            ctx.strokeStyle = '#000'; ctx.lineWidth = 5; ctx.lineCap = 'round';
+            let isDrawing = false, lastX = 0, lastY = 0;
 
-            let isDrawing = false;
-            let lastX = 0, lastY = 0;
-
-            canvas.addEventListener('mousedown', (e) => {
-                isDrawing = true;
-                [lastX, lastY] = [e.offsetX, e.offsetY];
-            });
-            canvas.addEventListener('mousemove', (e) => {
+            canvas.addEventListener('mousedown', e => { isDrawing = true; [lastX, lastY] = [e.offsetX, e.offsetY]; });
+            canvas.addEventListener('mousemove', e => {
                 if (!isDrawing) return;
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(e.offsetX, e.offsetY);
-                ctx.stroke();
+                ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(e.offsetX, e.offsetY); ctx.stroke();
                 [lastX, lastY] = [e.offsetX, e.offsetY];
             });
             canvas.addEventListener('mouseup', () => isDrawing = false);
             canvas.addEventListener('mouseout', () => isDrawing = false);
 
-            canvas.addEventListener('touchstart', (e) => {
+            canvas.addEventListener('touchstart', e => {
                 e.preventDefault();
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                isDrawing = true;
-                lastX = touch.clientX - rect.left;
-                lastY = touch.clientY - rect.top;
+                const touch = e.touches[0], rect = canvas.getBoundingClientRect();
+                isDrawing = true; lastX = touch.clientX - rect.left; lastY = touch.clientY - rect.top;
             });
-            canvas.addEventListener('touchmove', (e) => {
-                e.preventDefault();
-                if (!isDrawing) return;
-                const touch = e.touches[0];
-                const rect = canvas.getBoundingClientRect();
-                const x = touch.clientX - rect.left;
-                const y = touch.clientY - rect.top;
-                ctx.beginPath();
-                ctx.moveTo(lastX, lastY);
-                ctx.lineTo(x, y);
-                ctx.stroke();
+            canvas.addEventListener('touchmove', e => {
+                e.preventDefault(); if (!isDrawing) return;
+                const touch = e.touches[0], rect = canvas.getBoundingClientRect();
+                const x = touch.clientX - rect.left, y = touch.clientY - rect.top;
+                ctx.beginPath(); ctx.moveTo(lastX, lastY); ctx.lineTo(x, y); ctx.stroke();
                 lastX = x; lastY = y;
             });
             canvas.addEventListener('touchend', () => isDrawing = false);
-
             return ctx;
         }
 
-        function clearAllCanvases() {
-            canvasContexts.forEach(ctx => {
-                if (ctx) ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
-            });
-        }
-
-        function clearSingleCanvas(canvasId) {
-            const canvas = document.getElementById(canvasId);
-            if (canvas) {
-                const ctx = canvas.getContext('2d');
-                ctx.clearRect(0, 0, canvas.width, canvas.height);
-            }
-        }
+        function clearAllCanvases() { canvasContexts.forEach(ctx => { if (ctx) ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height); }); }
+        function clearSingleCanvas(id) { const c = document.getElementById(id); if (c) c.getContext('2d').clearRect(0, 0, c.width, c.height); }
 
         // ==================== 題目顯示 ====================
-        
         function showQuestion() {
             const mapId = gameState.currentMap;
-            
             document.getElementById('reading-passage-container').innerHTML = '';
             document.getElementById('example-container').innerHTML = '';
             document.getElementById('question-hint').textContent = '';
             document.getElementById('stage-display').innerHTML = '';
             document.getElementById('feedback').textContent = '';
-            document.getElementById('feedback').className = 'feedback';
             canvasContexts = [];
-            
+
             if (mapId === 'temple') { showTempleQuestion(); return; }
             if (mapId === 'sentence') { showSentenceQuestion(); return; }
-            
+
             let questionData, totalQuestions;
-            
             if (mapId === 'maze') {
                 questionData = questions.maze.questions[gameState.currentQuestionIndex];
                 totalQuestions = questions.maze.questions.length;
-                document.getElementById('reading-passage-container').innerHTML = 
-                    `<div class="reading-passage">${questions.maze.passage}</div>`;
+                document.getElementById('reading-passage-container').innerHTML = `<div class="reading-passage">${questions.maze.passage}</div>`;
             } else {
                 questionData = questions[mapId][gameState.currentQuestionIndex];
                 totalQuestions = questions[mapId].length;
             }
-            
-            document.getElementById('progress-display').textContent = 
-                `${mapNames[mapId]} - 第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
-            
+
+            document.getElementById('progress-display').textContent = `${mapNames[mapId]} - ${gameState.currentQuestionIndex + 1}/${totalQuestions}`;
             document.getElementById('question-text').textContent = questionData.q;
-            
-            if (questionData.hint) {
-                document.getElementById('question-hint').textContent = questionData.hint;
-            }
-            
+            if (questionData.hint) document.getElementById('question-hint').textContent = questionData.hint;
+
             const answerArea = document.getElementById('answer-area');
-            
             if (['cabin', 'swamp'].includes(mapId)) {
-                let extraInfo = '';
-                if (mapId === 'swamp') {
-                    extraInfo = `<p style="margin-bottom:10px; color:#ffaa00;">請找出錯字，並寫出正確的字</p>`;
-                }
-                
-                answerArea.innerHTML = `
-                    ${extraInfo}
-                    <div class="canvas-container">
-                        <canvas id="main-canvas" class="writing-canvas" width="250" height="180"></canvas>
-                    </div>
+                let extra = mapId === 'swamp' ? '<p style="margin-bottom:10px;color:#ffaa00;">找出錯字，寫出正確的字</p>' : '';
+                answerArea.innerHTML = `${extra}
+                    <div class="canvas-container"><canvas id="main-canvas" class="writing-canvas" width="250" height="180"></canvas></div>
                     <div class="canvas-buttons">
                         <button class="canvas-btn clear-btn" onclick="clearSingleCanvas('main-canvas')">清除</button>
                         <button class="canvas-btn done-btn" onclick="showAnswer()">我寫好了</button>
-                    </div>
-                    <div id="answer-reveal" style="display:none;"></div>
-                `;
+                    </div><div id="answer-reveal" style="display:none;"></div>`;
                 setTimeout(() => { canvasContexts.push(initSingleCanvas('main-canvas')); }, 100);
-                
             } else {
-                const optionsHtml = questionData.options.map(opt => 
-                    `<button class="option-btn" onclick="selectOption('${opt}')">${opt}</button>`
-                ).join('');
-                answerArea.innerHTML = `<div class="answer-options">${optionsHtml}</div>`;
+                answerArea.innerHTML = `<div class="answer-options">${questionData.options.map(o => `<button class="option-btn" onclick="selectOption('${o}')">${o}</button>`).join('')}</div>`;
             }
         }
 
-        // ==================== 造句山谷（多格手寫）====================
-        
         function showSentenceQuestion() {
-            const questionData = questions.sentence[gameState.currentQuestionIndex];
-            const totalQuestions = questions.sentence.length;
-            
-            document.getElementById('progress-display').textContent = 
-                `${mapNames.sentence} - 第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
-            
-            document.getElementById('example-container').innerHTML = `
-                <div class="example-box">
-                    <div class="example-label">📖 例句：</div>
-                    <div class="example-text">${questionData.example}</div>
-                </div>
-            `;
-            
-            document.getElementById('question-text').innerHTML = `
-                <div class="template-text">${questionData.template}</div>
-            `;
-            
-            // 建立多個手寫格
-            let canvasesHtml = '<div class="multi-canvas-container">';
-            for (let i = 0; i < questionData.blanks; i++) {
-                canvasesHtml += `
-                    <div class="single-blank">
-                        <div class="blank-label">第 ${i + 1} 格</div>
-                        <div class="blank-canvas-wrap">
-                            <canvas id="blank-canvas-${i}" class="blank-canvas" width="120" height="100"></canvas>
-                        </div>
-                    </div>
-                `;
+            const q = questions.sentence[gameState.currentQuestionIndex];
+            document.getElementById('progress-display').textContent = `${mapNames.sentence} - ${gameState.currentQuestionIndex + 1}/${questions.sentence.length}`;
+            document.getElementById('example-container').innerHTML = `<div class="example-box"><div class="example-label">📖 例句：</div><div class="example-text">${q.example}</div></div>`;
+            document.getElementById('question-text').innerHTML = `<div class="template-text">${q.template}</div>`;
+
+            let html = '<div class="multi-canvas-container">';
+            for (let i = 0; i < q.blanks; i++) {
+                html += `<div class="single-blank"><div class="blank-label">第${i+1}格</div><div class="blank-canvas-wrap"><canvas id="blank-canvas-${i}" class="blank-canvas" width="120" height="100"></canvas></div></div>`;
             }
-            canvasesHtml += '</div>';
-            
-            document.getElementById('answer-area').innerHTML = `
-                ${canvasesHtml}
+            html += '</div>';
+            document.getElementById('answer-area').innerHTML = `${html}
                 <div class="canvas-buttons">
                     <button class="canvas-btn clear-btn" onclick="clearAllCanvases()">清除全部</button>
                     <button class="canvas-btn done-btn" onclick="showSentenceAnswer()">我寫好了</button>
-                </div>
-                <div id="answer-reveal" style="display:none;"></div>
-            `;
-            
-            setTimeout(() => {
-                canvasContexts = [];
-                for (let i = 0; i < questionData.blanks; i++) {
-                    canvasContexts.push(initSingleCanvas(`blank-canvas-${i}`));
-                }
-            }, 100);
+                </div><div id="answer-reveal" style="display:none;"></div>`;
+            setTimeout(() => { canvasContexts = []; for (let i = 0; i < q.blanks; i++) canvasContexts.push(initSingleCanvas(`blank-canvas-${i}`)); }, 100);
         }
 
         function showSentenceAnswer() {
-            const questionData = questions.sentence[gameState.currentQuestionIndex];
-            
-            let answersHtml = '<div class="answers-list">';
-            questionData.answers.forEach((ans, i) => {
-                answersHtml += `<span class="answer-item">第${i+1}格：${ans}</span>`;
-            });
-            answersHtml += '</div>';
-            
+            const q = questions.sentence[gameState.currentQuestionIndex];
+            let html = '<div class="answers-list">';
+            q.answers.forEach((a, i) => { html += `<span class="answer-item">第${i+1}格：${a}</span>`; });
+            html += '</div>';
             document.getElementById('answer-reveal').style.display = 'block';
-            document.getElementById('answer-reveal').innerHTML = `
-                <div class="answer-reveal">
-                    <p>正確答案：</p>
-                    ${answersHtml}
-                    <p style="margin-top:15px;">你寫對了嗎？</p>
-                    <div class="confirm-buttons">
-                        <button class="confirm-btn correct-btn" onclick="confirmAnswer(true, 2)">✅ 對 +2💎</button>
-                        <button class="confirm-btn wrong-btn" onclick="confirmAnswer(false, 2)">❌ 錯</button>
-                    </div>
-                </div>
-            `;
+            document.getElementById('answer-reveal').innerHTML = `<div class="answer-reveal"><p>正確答案：</p>${html}<p style="margin-top:15px;">你寫對了嗎？</p>
+                <div class="confirm-buttons"><button class="confirm-btn correct-btn" onclick="confirmAnswer(true,2)">✅ 對 +2💎</button><button class="confirm-btn wrong-btn" onclick="confirmAnswer(false,2)">❌ 錯</button></div></div>`;
         }
 
-        // ==================== 部首神殿（三階段）====================
-        
         function showTempleQuestion() {
-            const questionData = questions.temple[gameState.currentQuestionIndex];
-            const stageData = questionData.stages[gameState.currentStageIndex];
-            const totalQuestions = questions.temple.length;
+            const q = questions.temple[gameState.currentQuestionIndex];
+            const s = q.stages[gameState.currentStageIndex];
             const stageNames = ['筆畫', '部首', '造詞'];
-            
-            document.getElementById('progress-display').textContent = 
-                `${mapNames.temple} - 第 ${gameState.currentQuestionIndex + 1} 題，共 ${totalQuestions} 題`;
-            
-            document.getElementById('stage-display').innerHTML = 
-                `<span class="stage-indicator">📝 階段 ${gameState.currentStageIndex + 1}/3：${stageNames[gameState.currentStageIndex]}</span>`;
-            
-            document.getElementById('question-text').textContent = stageData.q;
-            if (stageData.hint) document.getElementById('question-hint').textContent = stageData.hint;
-            
+            document.getElementById('progress-display').textContent = `${mapNames.temple} - ${gameState.currentQuestionIndex + 1}/${questions.temple.length}`;
+            document.getElementById('stage-display').innerHTML = `<span class="stage-indicator">📝 ${gameState.currentStageIndex + 1}/3：${stageNames[gameState.currentStageIndex]}</span>`;
+            document.getElementById('question-text').textContent = s.q;
+            if (s.hint) document.getElementById('question-hint').textContent = s.hint;
+
             document.getElementById('answer-area').innerHTML = `
-                <div class="canvas-container">
-                    <canvas id="main-canvas" class="writing-canvas" width="250" height="130"></canvas>
-                </div>
+                <div class="canvas-container"><canvas id="main-canvas" class="writing-canvas" width="250" height="130"></canvas></div>
                 <div class="canvas-buttons">
                     <button class="canvas-btn clear-btn" onclick="clearSingleCanvas('main-canvas')">清除</button>
                     <button class="canvas-btn done-btn" onclick="showTempleAnswer()">我寫好了</button>
-                </div>
-                <div id="answer-reveal" style="display:none;"></div>
-            `;
+                </div><div id="answer-reveal" style="display:none;"></div>`;
             setTimeout(() => { canvasContexts = [initSingleCanvas('main-canvas')]; }, 100);
         }
 
         function showTempleAnswer() {
-            const questionData = questions.temple[gameState.currentQuestionIndex];
-            const stageData = questionData.stages[gameState.currentStageIndex];
-            
+            const s = questions.temple[gameState.currentQuestionIndex].stages[gameState.currentStageIndex];
             document.getElementById('answer-reveal').style.display = 'block';
-            document.getElementById('answer-reveal').innerHTML = `
-                <div class="answer-reveal">
-                    <p>正確答案：</p>
-                    <div class="correct-answer">${stageData.a}</div>
-                    <p>你寫對了嗎？</p>
-                    <div class="confirm-buttons">
-                        <button class="confirm-btn correct-btn" onclick="confirmTempleAnswer(true)">✅ 對</button>
-                        <button class="confirm-btn wrong-btn" onclick="confirmTempleAnswer(false)">❌ 錯</button>
-                    </div>
-                </div>
-            `;
+            document.getElementById('answer-reveal').innerHTML = `<div class="answer-reveal"><p>正確答案：</p><div class="correct-answer">${s.a}</div><p>你寫對了嗎？</p>
+                <div class="confirm-buttons"><button class="confirm-btn correct-btn" onclick="confirmTempleAnswer(true)">✅ 對</button><button class="confirm-btn wrong-btn" onclick="confirmTempleAnswer(false)">❌ 錯</button></div></div>`;
         }
 
-        function confirmTempleAnswer(isCorrect) {
-            const feedback = document.getElementById('feedback');
-            
-            if (isCorrect) {
-                gameState.templeStageCorrect++;
-                feedback.textContent = '✅ 正確！';
-                feedback.className = 'feedback correct';
-            } else {
-                feedback.textContent = '❌ 錯誤';
-                feedback.className = 'feedback wrong';
-            }
-            
+        function confirmTempleAnswer(correct) {
+            const fb = document.getElementById('feedback');
+            if (correct) { gameState.templeStageCorrect++; fb.textContent = '✅ 正確！'; fb.className = 'feedback correct'; }
+            else { fb.textContent = '❌ 錯誤'; fb.className = 'feedback wrong'; }
             gameState.currentStageIndex++;
-            
-            if (gameState.currentStageIndex < 3) {
-                setTimeout(() => showTempleQuestion(), 800);
-            } else {
+            if (gameState.currentStageIndex < 3) { setTimeout(showTempleQuestion, 800); }
+            else {
                 const gems = Math.floor(gameState.templeStageCorrect * 4 / 3);
-                if (gems > 0) {
-                    gameState.gems += gems;
-                    feedback.textContent = `🎉 本題完成！+${gems} 💎`;
-                    feedback.className = 'feedback correct';
-                } else {
-                    feedback.textContent = '😢 本題沒得分，繼續加油！';
-                    feedback.className = 'feedback wrong';
-                }
+                if (gems > 0) { gameState.gems += gems; fb.textContent = `🎉 +${gems}💎`; fb.className = 'feedback correct'; }
+                else { fb.textContent = '😢 沒得分'; fb.className = 'feedback wrong'; }
                 updateDisplays();
-                
-                gameState.currentStageIndex = 0;
-                gameState.templeStageCorrect = 0;
-                gameState.currentQuestionIndex++;
-                
-                setTimeout(() => {
-                    if (gameState.currentQuestionIndex >= questions.temple.length) completeMap();
-                    else showTempleQuestion();
-                }, 1200);
+                gameState.currentStageIndex = 0; gameState.templeStageCorrect = 0; gameState.currentQuestionIndex++;
+                setTimeout(() => { if (gameState.currentQuestionIndex >= questions.temple.length) completeMap(); else showTempleQuestion(); }, 1200);
             }
         }
-
-        // ==================== 一般答案 ====================
 
         function showAnswer() {
-            const mapId = gameState.currentMap;
-            const questionData = questions[mapId][gameState.currentQuestionIndex];
-            const gems = mapId === 'cabin' ? 1 : 2;
-            
+            const q = questions[gameState.currentMap][gameState.currentQuestionIndex];
+            const gems = gameState.currentMap === 'cabin' ? 1 : 2;
             document.getElementById('answer-reveal').style.display = 'block';
-            document.getElementById('answer-reveal').innerHTML = `
-                <div class="answer-reveal">
-                    <p>正確答案：</p>
-                    <div class="correct-answer">${questionData.a}</div>
-                    <p>你寫對了嗎？</p>
-                    <div class="confirm-buttons">
-                        <button class="confirm-btn correct-btn" onclick="confirmAnswer(true, ${gems})">✅ 對 +${gems}💎</button>
-                        <button class="confirm-btn wrong-btn" onclick="confirmAnswer(false, ${gems})">❌ 錯</button>
-                    </div>
-                </div>
-            `;
+            document.getElementById('answer-reveal').innerHTML = `<div class="answer-reveal"><p>正確答案：</p><div class="correct-answer">${q.a}</div><p>你寫對了嗎？</p>
+                <div class="confirm-buttons"><button class="confirm-btn correct-btn" onclick="confirmAnswer(true,${gems})">✅ 對 +${gems}💎</button><button class="confirm-btn wrong-btn" onclick="confirmAnswer(false,${gems})">❌ 錯</button></div></div>`;
         }
 
-        function confirmAnswer(isCorrect, gems) {
-            const feedback = document.getElementById('feedback');
-            
-            if (isCorrect) {
-                feedback.textContent = `✅ 正確！+${gems} 💎`;
-                feedback.className = 'feedback correct';
-                gameState.gems += gems;
-                gameState.retryUsed = false;
-                setTimeout(() => nextQuestion(), 800);
+        function confirmAnswer(correct, gems) {
+            const fb = document.getElementById('feedback');
+            if (correct) {
+                fb.textContent = `✅ +${gems}💎`; fb.className = 'feedback correct';
+                gameState.gems += gems; gameState.retryUsed = false;
+                setTimeout(nextQuestion, 800);
             } else {
                 if (!gameState.retryUsed) {
-                    feedback.textContent = '❌ 再試一次！';
-                    feedback.className = 'feedback wrong';
-                    gameState.retryUsed = true;
-                    clearAllCanvases();
+                    fb.textContent = '❌ 再試一次！'; fb.className = 'feedback wrong';
+                    gameState.retryUsed = true; clearAllCanvases();
                     document.getElementById('answer-reveal').style.display = 'none';
                 } else {
-                    feedback.textContent = '❌ 沒關係，繼續加油！';
-                    feedback.className = 'feedback wrong';
+                    fb.textContent = '❌ 繼續加油！'; fb.className = 'feedback wrong';
                     gameState.retryUsed = false;
-                    setTimeout(() => nextQuestion(), 1000);
+                    setTimeout(nextQuestion, 1000);
                 }
             }
             updateDisplays();
         }
 
-        function selectOption(option) {
+        function selectOption(opt) {
             const mapId = gameState.currentMap;
-            let correctAnswer;
-            
-            if (mapId === 'maze') {
-                correctAnswer = questions.maze.questions[gameState.currentQuestionIndex].a;
+            const correct = mapId === 'maze' ? questions.maze.questions[gameState.currentQuestionIndex].a : questions[mapId][gameState.currentQuestionIndex].a;
+            const fb = document.getElementById('feedback');
+            if (opt === correct) {
+                fb.textContent = '✅ +2💎'; fb.className = 'feedback correct';
+                gameState.gems += 2; gameState.retryUsed = false;
+                setTimeout(nextQuestion, 1000);
             } else {
-                correctAnswer = questions[mapId][gameState.currentQuestionIndex].a;
-            }
-            
-            const feedback = document.getElementById('feedback');
-            const gems = 2;
-            
-            if (option === correctAnswer) {
-                feedback.textContent = `✅ 正確！+${gems} 💎`;
-                feedback.className = 'feedback correct';
-                gameState.gems += gems;
-                gameState.retryUsed = false;
-                setTimeout(() => nextQuestion(), 1000);
-            } else {
-                if (!gameState.retryUsed) {
-                    feedback.textContent = '❌ 錯誤！再試一次';
-                    feedback.className = 'feedback wrong';
-                    gameState.retryUsed = true;
-                } else {
-                    feedback.textContent = `❌ 答案是：${correctAnswer}`;
-                    feedback.className = 'feedback wrong';
-                    gameState.retryUsed = false;
-                    setTimeout(() => nextQuestion(), 1500);
-                }
+                if (!gameState.retryUsed) { fb.textContent = '❌ 再試一次'; fb.className = 'feedback wrong'; gameState.retryUsed = true; }
+                else { fb.textContent = `❌ 答案：${correct}`; fb.className = 'feedback wrong'; gameState.retryUsed = false; setTimeout(nextQuestion, 1500); }
             }
             updateDisplays();
         }
 
         function nextQuestion() {
-            const mapId = gameState.currentMap;
-            const total = mapId === 'maze' ? questions.maze.questions.length : questions[mapId].length;
-            
+            const total = gameState.currentMap === 'maze' ? questions.maze.questions.length : questions[gameState.currentMap].length;
             gameState.currentQuestionIndex++;
             if (gameState.currentQuestionIndex >= total) completeMap();
             else showQuestion();
@@ -1220,110 +1047,109 @@
             gameState.completedMaps.push(gameState.currentMap);
             gameState.mapsCleared++;
             gameState.food--;
-            
+
             if (gameState.food < 0) { gameOver('你餓死了！記得買食物。'); return; }
-            if (gameState.completedMaps.length >= 6) { victory(); return; }
-            
-            if (gameState.mapsCleared >= 3 && Math.random() < 0.6) {
-                triggerMonster();
+
+            const schedule = monsterSchedule[gameState.mapsCleared];
+            if (schedule) {
+                gameState.pendingMonster = schedule.type;
+                showWarning(schedule.title, schedule.monster, schedule.requirements);
+            } else if (gameState.completedMaps.length >= 6) {
+                victory();
             } else {
-                alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n消耗 1 食物\n剩餘：${gameState.food}`);
+                alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n消耗1食物，剩餘：${gameState.food}`);
                 showScreen('map-screen');
             }
         }
 
+        // ==================== 怪物預警 ====================
+        function showWarning(title, monster, requirements) {
+            document.getElementById('warning-title').textContent = title;
+            document.getElementById('warning-monster').textContent = monster;
+            
+            let reqHtml = '<div class="warning-requirements-title">📦 需要準備的道具</div>';
+            
+            requirements.forEach((req, index) => {
+                if (index > 0) reqHtml += '<div class="warning-or">── 或 ──</div>';
+                reqHtml += `
+                    <div class="warning-requirement-item">
+                        <div class="warning-requirement-items">${req.items}</div>
+                        <div class="warning-requirement-desc">→ ${req.desc}</div>
+                        <div class="warning-requirement-cost">💰 ${req.cost}</div>
+                    </div>
+                `;
+            });
+            
+            const inv = gameState.inventory;
+            const invItems = [];
+            if (inv.torch > 0) invItems.push(`🔥×${inv.torch}`);
+            if (inv.rabbitHorn > 0) invItems.push(`🐰×${inv.rabbitHorn}`);
+            if (inv.kunai > 0) invItems.push(`🗡️×${inv.kunai}`);
+            if (inv.lowFur > 0) invItems.push(`🧶×${inv.lowFur}`);
+            if (inv.fur > 0) invItems.push(`🧥×${inv.fur}`);
+            
+            reqHtml += `
+                <div class="warning-inventory">
+                    <div class="warning-inventory-title">🎒 你目前的背包：</div>
+                    <div class="warning-inventory-items">${invItems.length > 0 ? invItems.join('  ') : '（空）'}</div>
+                    <div style="margin-top:5px;font-size:13px;color:#aaa;">💎 寶石：${gameState.gems}</div>
+                </div>
+            `;
+            
+            document.getElementById('warning-requirements').innerHTML = reqHtml;
+            showScreen('warning-screen');
+        }
+
+        function goToShopFromWarning() {
+            gameState.fromWarningShop = true;
+            document.getElementById('shop-back-btn').textContent = '✅ 準備好了，面對怪物！';
+            showScreen('shop-screen');
+        }
+
+        function proceedToMonster() {
+            triggerMonster(gameState.pendingMonster);
+        }
+
         // ==================== 商店 ====================
-        
-        function openShop() { showScreen('shop-screen'); }
-        function closeShop() { showScreen('map-screen'); }
+        function openShop() {
+            gameState.fromWarningShop = false;
+            document.getElementById('shop-back-btn').textContent = '返回地圖';
+            showScreen('shop-screen');
+        }
+
+        function closeShop() {
+            if (gameState.fromWarningShop) {
+                gameState.fromWarningShop = false;
+                document.getElementById('shop-back-btn').textContent = '返回地圖';
+                triggerMonster(gameState.pendingMonster);
+            } else {
+                showScreen('map-screen');
+            }
+        }
 
         function buyItem(item) {
             const prices = { food: 3, torch: 4, rabbitHorn: 4, kunai: 10 };
             if (gameState.gems < prices[item]) { alert('寶石不足！'); return; }
             gameState.gems -= prices[item];
-            if (item === 'food') gameState.food++;
-            else gameState.inventory[item]++;
+            if (item === 'food') gameState.food++; else gameState.inventory[item]++;
             updateDisplays();
         }
 
         function craftFur() {
             if (gameState.inventory.lowFur >= 2) {
-                gameState.inventory.lowFur -= 2;
-                gameState.inventory.fur++;
-                alert('合成成功！獲得毛皮 ×1');
-                updateDisplays();
-            } else {
-                alert('需要低等毛皮 ×2！');
-            }
+                gameState.inventory.lowFur -= 2; gameState.inventory.fur++;
+                alert('合成成功！獲得毛皮×1'); updateDisplays();
+            } else { alert('需要低等毛皮×2！'); }
         }
 
-        // ==================== 怪物 ====================
-        
-        function triggerMonster() {
-            const types = ['wolf', 'wolf', 'alphaWolf'];
-            if (gameState.mapsCleared >= 5) types.push('polarBear');
+        // ==================== 怪物戰鬥 ====================
+        function triggerMonster(type) {
+            const m = monsters[type];
+            document.getElementById('monster-icon').textContent = m.icon;
+            document.getElementById('monster-name').textContent = m.name;
+            document.getElementById('monster-desc').textContent = m.desc;
             
-            const type = types[Math.floor(Math.random() * types.length)];
-            const monster = monsters[type];
-            
-            document.getElementById('monster-icon').textContent = monster.icon;
-            document.getElementById('monster-name').textContent = monster.name;
-            document.getElementById('monster-desc').textContent = monster.desc;
-            
-            const actionsHtml = monster.actions.map((action, i) => {
+            const actionsHtml = m.actions.map((action, i) => {
                 const canUse = checkRequirements(action.requires);
-                return `<button class="monster-btn" ${canUse ? '' : 'disabled'} 
-                    onclick="useMonsterAction('${type}', ${i})">${action.text}</button>`;
-            }).join('');
-            
-            document.getElementById('monster-actions').innerHTML = actionsHtml + 
-                `<button class="monster-btn" style="background:#333;" onclick="fleeMonster()">🏃 逃跑（-50%寶石）</button>`;
-            
-            showScreen('monster-screen');
-        }
-
-        function checkRequirements(req) {
-            for (let item in req) {
-                if ((gameState.inventory[item] || 0) < req[item]) return false;
-            }
-            return true;
-        }
-
-        function useMonsterAction(type, i) {
-            const action = monsters[type].actions[i];
-            for (let item in action.consumes) gameState.inventory[item] -= action.consumes[item];
-            
-            if (action.drops) {
-                for (let item in action.drops) {
-                    gameState.inventory[item] = (gameState.inventory[item] || 0) + action.drops[item];
-                }
-                const names = { lowFur: '低等毛皮', fur: '毛皮', sword: '劍' };
-                const text = Object.entries(action.drops).map(([k,v]) => `${names[k]}×${v}`).join(', ');
-                alert(`🎉 成功！獲得：${text}`);
-            } else {
-                alert('🎉 成功擊退！');
-            }
-            showScreen('map-screen');
-        }
-
-        function fleeMonster() {
-            gameState.gems = Math.floor(gameState.gems / 2);
-            alert(`逃跑了！剩餘寶石：${gameState.gems}`);
-            showScreen('map-screen');
-        }
-
-        // ==================== 結束 ====================
-        
-        function gameOver(reason) {
-            document.getElementById('gameover-reason').textContent = reason;
-            showScreen('gameover-screen');
-        }
-
-        function victory() {
-            document.getElementById('final-stats').innerHTML = 
-                `最終寶石：${gameState.gems} 💎<br>劍：${gameState.inventory.sword} ⚔️`;
-            showScreen('victory-screen');
-        }
-    </script>
-</body>
-</html>
+                return `<button class="monster-btn" ${canUse ? '' : 'disabled'} onclick="useMonsterAction('${type}', ${i})">${action.text}</button>`;
+            }).join('');*
