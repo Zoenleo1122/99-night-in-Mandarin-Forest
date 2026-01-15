@@ -422,12 +422,11 @@ body {
     </style>
 </head>
 <body>
-    <!-- 主選單 -->
     <div id="menu-screen" class="screen active">
         <h1 class="game-title">🌲 森林生存國語挑戰 🌲</h1>
         <button class="menu-btn" onclick="startGame()">開始遊戲</button>
     </div>
-    <!-- 地圖選擇 -->
+    
     <div id="map-screen" class="screen">
         <div class="status-bar">
             <span class="status-item">💎 <span id="gems-display">0</span></span>
@@ -448,7 +447,7 @@ body {
             <button class="map-btn" onclick="openShop()">🛒 商店</button>
         </div>
     </div>
-    <!-- 題目畫面 -->
+    
     <div id="question-screen" class="screen">
         <div class="status-bar">
             <span class="status-item">💎 <span id="gems-display2">0</span></span>
@@ -467,7 +466,7 @@ body {
             </div>
         </div>
     </div>
-    <!-- 商店 -->
+    
     <div id="shop-screen" class="screen">
         <div class="status-bar">
             <span class="status-item">💎 <span id="gems-display3">0</span></span>
@@ -501,7 +500,7 @@ body {
             <button class="back-btn" id="shop-back-btn" onclick="closeShop()">返回地圖</button>
         </div>
     </div>
-    <!-- 怪物預警 -->
+    
     <div id="warning-screen" class="screen">
         <div class="warning-box">
             <div class="warning-icon">⚠️</div>
@@ -515,7 +514,7 @@ body {
             </div>
         </div>
     </div>
-    <!-- 怪物事件 -->
+    
     <div id="monster-screen" class="screen">
         <div class="monster-box">
             <div class="monster-icon" id="monster-icon">🐺</div>
@@ -524,7 +523,7 @@ body {
             <div class="monster-actions" id="monster-actions"></div>
         </div>
     </div>
-    <!-- 遊戲結束 -->
+    
     <div id="gameover-screen" class="screen">
         <div class="gameover-box">
             <h1 class="gameover-title">💀 遊戲結束</h1>
@@ -532,7 +531,7 @@ body {
             <button class="menu-btn" onclick="location.reload()">重新開始</button>
         </div>
     </div>
-    <!-- 勝利畫面 -->
+    
     <div id="victory-screen" class="screen">
         <div class="gameover-box">
             <h1 class="victory-title">🎉 恭喜過關！</h1>
@@ -542,7 +541,6 @@ body {
         </div>
     </div>
     <script>
-// ==================== 題庫 ====================
 const questions = {
     cabin: [
         { q: "（ㄎㄜˋ）家文化園區", a: "客" },
@@ -704,10 +702,9 @@ const monsters = {
         ]
     }
 };
-// ==================== 遊戲狀態 ====================
 let gameState = {
     gems: 0,
-    food: 2,  // 起始食物改為2
+    food: 2,
     inventory: { torch: 0, rabbitFoot: 0, kunai: 0, lowFur: 0, fur: 0, sword: 0 },
     completedMaps: [],
     currentMap: null,
@@ -720,7 +717,6 @@ let gameState = {
     fromWarningShop: false
 };
 let canvasContexts = [];
-// ==================== 工具函數 ====================
 function shuffleArray(array) {
     const arr = [...array];
     for (let i = arr.length - 1; i > 0; i--) {
@@ -729,7 +725,6 @@ function shuffleArray(array) {
     }
     return arr;
 }
-// ==================== 畫面切換 ====================
 function showScreen(screenId) {
     document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
     document.getElementById(screenId).classList.add('active');
@@ -806,11 +801,10 @@ function updateMonsterCountdown() {
         container.innerHTML = '';
     }
 }
-// ==================== 遊戲開始 ====================
 function startGame() {
     gameState = {
         gems: 0,
-        food: 2,  // 起始食物改為2
+        food: 2,
         inventory: { torch: 0, rabbitFoot: 0, kunai: 0, lowFur: 0, fur: 0, sword: 0 },
         completedMaps: [],
         currentMap: null,
@@ -841,7 +835,6 @@ function enterMap(mapId) {
     showScreen('question-screen');
     showQuestion();
 }
-// ==================== 手寫畫布 ====================
 function initSingleCanvas(canvasId) {
     const canvas = document.getElementById(canvasId);
     if (!canvas) return null;
@@ -908,7 +901,6 @@ function clearSingleCanvas(canvasId) {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
     }
 }
-// ==================== 題目顯示 ====================
 function showQuestion() {
     const mapId = gameState.currentMap;
     
@@ -958,9 +950,6 @@ function showQuestion() {
             extraInfo = `<p style="margin-bottom:10px; color:#ffaa00;">請找出句子中的錯字，並寫出正確的字</p>`;
         }
         
-        // 字林小屋獎勵改為2💎
-        const gems = 2;
-        
         answerArea.innerHTML = `
             ${extraInfo}
             <div class="canvas-container">
@@ -977,7 +966,6 @@ function showQuestion() {
         }, 100);
         
     } else {
-        // 選擇題 - 打亂選項順序
         const shuffledOptions = shuffleArray(questionData.options);
         const optionsHtml = shuffledOptions.map(opt => 
             `<button class="option-btn" onclick="selectOption('${opt}')">${opt}</button>`
@@ -985,7 +973,6 @@ function showQuestion() {
         answerArea.innerHTML = `<div class="answer-options">${optionsHtml}</div>`;
     }
 }
-// ==================== 造句題 ====================
 function showSentenceQuestion() {
     const questionData = questions.sentence[gameState.currentQuestionIndex];
     const totalQuestions = questions.sentence.length;
@@ -1055,7 +1042,6 @@ function showSentenceAnswer() {
         </div>
     `;
 }
-// ==================== 部首題 ====================
 function showTempleQuestion() {
     const questionData = questions.temple[gameState.currentQuestionIndex];
     const stageData = questionData.stages[gameState.currentStageIndex];
@@ -1148,10 +1134,8 @@ function confirmTempleAnswer(isCorrect) {
         }, 1200);
     }
 }
-// ==================== 一般答案 ====================
 function showAnswer() {
     const questionData = questions[gameState.currentMap][gameState.currentQuestionIndex];
-    // 字林小屋和錯字沼澤都改為2💎
     const gems = 2;
     
     document.getElementById('answer-reveal').style.display = 'block';
@@ -1202,4 +1186,57 @@ function selectOption(option) {
         correctAnswer = questions[mapId][gameState.currentQuestionIndex].a;
     }
     
-    const feedback = document.
+    const feedback = document.getElementById('feedback');
+    const gems = 2;
+    
+    if (option === correctAnswer) {
+        feedback.textContent = `✅ 正確！+${gems} 💎`;
+        feedback.className = 'feedback correct';
+        gameState.gems += gems;
+        gameState.retryUsed = false;
+        setTimeout(() => nextQuestion(), 1000);
+    } else {
+        if (!gameState.retryUsed) {
+            feedback.textContent = '❌ 錯誤！再試一次';
+            feedback.className = 'feedback wrong';
+            gameState.retryUsed = true;
+        } else {
+            feedback.textContent = `❌ 答案是：${correctAnswer}`;
+            feedback.className = 'feedback wrong';
+            gameState.retryUsed = false;
+            setTimeout(() => nextQuestion(), 1500);
+        }
+    }
+    updateDisplays();
+}
+function nextQuestion() {
+    const mapId = gameState.currentMap;
+    const totalQuestions = mapId === 'maze' 
+        ? questions.maze.questions.length 
+        : questions[mapId].length;
+    
+    gameState.currentQuestionIndex++;
+    
+    if (gameState.currentQuestionIndex >= totalQuestions) {
+        completeMap();
+    } else {
+        showQuestion();
+    }
+}
+function completeMap() {
+    gameState.completedMaps.push(gameState.currentMap);
+    gameState.mapsCleared++;
+    gameState.food--;
+    if (gameState.food < 0) {
+        gameOver('你餓死了！記得在商店購買食物。');
+        return;
+    }
+    const schedule = monsterSchedule[gameState.mapsCleared];
+    if (schedule) {
+        alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n🍙 消耗 1 食物\n🍙 剩餘食物：${gameState.food}\n\n⚠️ 怪物即將出現！`);
+        gameState.pendingMonster = schedule.type;
+        showWarning(schedule.title, schedule.monster, schedule.requirements);
+    } else if (gameState.completedMaps.length >= 6) {
+        victory();
+    } else {
+        alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n🍙 消耗 1 食物\n🍙 剩餘食物：${gameState.food}`);
