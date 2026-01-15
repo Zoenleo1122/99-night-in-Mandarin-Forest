@@ -37,7 +37,7 @@ body {
 }
 .status-item { font-size: 16px; }
 #menu-screen {
-    background-image: url('images/menu.jpg');
+    background: linear-gradient(135deg, #1a4a1a 0%, #0d2d0d 100%);
     justify-content: center;
     align-items: center;
     text-align: center;
@@ -61,7 +61,7 @@ body {
     margin: 10px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.5);
 }
-#map-screen { background-image: url('images/menu.jpg'); }
+#map-screen { background: linear-gradient(135deg, #1a4a1a 0%, #0d2d0d 100%); }
 .map-container {
     flex: 1;
     display: flex;
@@ -248,7 +248,7 @@ body {
 .feedback { margin-top: 12px; font-size: 18px; min-height: 25px; }
 .feedback.correct { color: #4CAF50; }
 .feedback.wrong { color: #f44336; }
-#shop-screen { background-image: url('images/shop.jpg'); }
+#shop-screen { background: linear-gradient(135deg, #2a1a00 0%, #1a1000 100%); }
 .shop-container {
     flex: 1;
     display: flex;
@@ -293,6 +293,7 @@ body {
     padding: 12px;
     border-radius: 10px;
     margin-top: 12px;
+    margin-bottom: 12px;
 }
 .inventory-title { font-size: 14px; color: #aaa; margin-bottom: 8px; }
 .inventory-items { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -633,15 +634,6 @@ const questions = {
     }
 };
 
-const mapBackgrounds = {
-    cabin: "images/cabin.jpg",
-    swamp: "images/swamp.jpg",
-    temple: "images/temple.jpg",
-    sound: "images/menu.jpg",
-    sentence: "images/menu.jpg",
-    maze: "images/maze.jpg"
-};
-
 const mapNames = {
     cabin: "字林小屋",
     swamp: "錯字沼澤",
@@ -746,14 +738,18 @@ function showScreen(screenId) {
 }
 
 function updateDisplays() {
+    // 安全地更新寶石顯示
     ['gems-display', 'gems-display2', 'gems-display3'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = gameState.gems;
     });
+    
+    // 安全地更新食物顯示
     ['food-display', 'food-display2', 'food-display3'].forEach(id => {
         const el = document.getElementById(id);
         if (el) el.textContent = gameState.food;
     });
+    
     updateInventoryDisplay();
     updateMapButtons();
     updateMonsterCountdown();
@@ -773,9 +769,11 @@ function updateInventoryDisplay() {
         ? items.map(i => `<span class="inv-item">${i}</span>`).join('') 
         : '<span class="inv-item">（空）</span>';
     
-    document.getElementById('inventory-display').innerHTML = html;
-    const inv2 = document.getElementById('inventory-display2');
-    if (inv2) inv2.innerHTML = html;
+    const invDisplay = document.getElementById('inventory-display');
+    if (invDisplay) invDisplay.innerHTML = html;
+    
+    const invDisplay2 = document.getElementById('inventory-display2');
+    if (invDisplay2) invDisplay2.innerHTML = html;
 }
 
 function updateMapButtons() {
@@ -853,9 +851,6 @@ function enterMap(mapId) {
     gameState.templeStageCorrect = 0;
     gameState.retryUsed = false;
     
-    const screen = document.getElementById('question-screen');
-    screen.style.backgroundImage = `url('${mapBackgrounds[mapId]}')`;
-    
     showScreen('question-screen');
     showQuestion();
 }
@@ -922,7 +917,9 @@ function initSingleCanvas(canvasId) {
 
 function clearAllCanvases() {
     canvasContexts.forEach(ctx => {
-        if (ctx) ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        if (ctx && ctx.canvas) {
+            ctx.clearRect(0, 0, ctx.canvas.width, ctx.canvas.height);
+        }
     });
 }
 
@@ -1268,198 +1265,3 @@ function nextQuestion() {
         completeMap();
     } else {
         showQuestion();
-    }
-}
-
-function completeMap() {
-    gameState.completedMaps.push(gameState.currentMap);
-    gameState.mapsCleared++;
-    gameState.food--;
-
-    if (gameState.food < 0) {
-        gameOver('你餓死了！記得在商店購買食物。');
-        return;
-    }
-
-    const schedule = monsterSchedule[gameState.mapsCleared];
-    if (schedule) {
-        alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n🍙 消耗 1 食物\n🍙 剩餘食物：${gameState.food}\n\n⚠️ 怪物即將出現！`);
-        gameState.pendingMonster = schedule.type;
-        showWarning(schedule.title, schedule.monster, schedule.requirements);
-    } else if (gameState.completedMaps.length >= 6) {
-        victory();
-    } else {
-        alert(`🎉 ${mapNames[gameState.currentMap]}完成！\n\n🍙 消耗 1 食物\n🍙 剩餘食物：${gameState.food}`);
-        showScreen('map-screen');
-    }
-}
-
-// ==================== 怪物預警 ====================
-function showWarning(title, monster, requirements) {
-    document.getElementById('warning-title').textContent = title;
-    document.getElementById('warning-monster').textContent = monster;
-    
-    let reqHtml = '<div class="warning-requirements-title">📦 需要準備的道具</div>';
-    
-    requirements.forEach((req, index) => {
-        if (index > 0) {
-            reqHtml += '<div class="warning-or">── 或 ──</div>';
-        }
-        reqHtml += `
-            <div class="warning-requirement-item">
-                <div class="warning-requirement-items">${req.items}</div>
-                <div class="warning-requirement-desc">→ ${req.desc}</div>
-                <div class="warning-requirement-cost">💰 ${req.cost}</div>
-            </div>
-        `;
-    });
-    
-    const inv = gameState.inventory;
-    const invItems = [];
-    if (inv.torch > 0) invItems.push(`🔥×${inv.torch}`);
-    if (inv.rabbitHorn > 0) invItems.push(`🐰×${inv.rabbitHorn}`);
-    if (inv.kunai > 0) invItems.push(`🗡️×${inv.kunai}`);
-    if (inv.lowFur > 0) invItems.push(`🧶×${inv.lowFur}`);
-    if (inv.fur > 0) invItems.push(`🧥×${inv.fur}`);
-    
-    reqHtml += `
-        <div class="warning-inventory">
-            <div class="warning-inventory-title">🎒 你目前的背包：</div>
-            <div class="warning-inventory-items">${invItems.length > 0 ? invItems.join('  ') : '（空）'}</div>
-            <div style="margin-top:5px;font-size:13px;color:#aaa;">💎 寶石：${gameState.gems}</div>
-        </div>
-    `;
-    
-    document.getElementById('warning-requirements').innerHTML = reqHtml;
-    showScreen('warning-screen');
-}
-
-function goToShopFromWarning() {
-    gameState.fromWarningShop = true;
-    document.getElementById('shop-back-btn').textContent = '✅ 準備好了，面對怪物！';
-    showScreen('shop-screen');
-}
-
-function proceedToMonster() {
-    triggerMonster(gameState.pendingMonster);
-}
-
-// ==================== 商店 ====================
-function openShop() {
-    gameState.fromWarningShop = false;
-    document.getElementById('shop-back-btn').textContent = '返回地圖';
-    showScreen('shop-screen');
-}
-
-function closeShop() {
-    if (gameState.fromWarningShop) {
-        gameState.fromWarningShop = false;
-        document.getElementById('shop-back-btn').textContent = '返回地圖';
-        triggerMonster(gameState.pendingMonster);
-    } else {
-        showScreen('map-screen');
-    }
-}
-
-function buyItem(item) {
-    const prices = { food: 3, torch: 4, rabbitHorn: 4, kunai: 10 };
-    const price = prices[item];
-    
-    if (gameState.gems < price) {
-        alert('寶石不足！');
-        return;
-    }
-    
-    gameState.gems -= price;
-    if (item === 'food') {
-        gameState.food++;
-    } else {
-        gameState.inventory[item]++;
-    }
-    
-    updateDisplays();
-}
-
-function craftFur() {
-    if (gameState.inventory.lowFur >= 2) {
-        gameState.inventory.lowFur -= 2;
-        gameState.inventory.fur++;
-        alert('合成成功！獲得毛皮 ×1');
-        updateDisplays();
-    } else {
-        alert('需要低等毛皮 ×2 才能合成！');
-    }
-}
-
-// ==================== 怪物戰鬥 ====================
-function triggerMonster(type) {
-    const monster = monsters[type];
-    
-    document.getElementById('monster-icon').textContent = monster.icon;
-    document.getElementById('monster-name').textContent = monster.name;
-    document.getElementById('monster-desc').textContent = monster.desc;
-    
-    const actionsHtml = monster.actions.map((action, index) => {
-        const canUse = checkRequirements(action.requires);
-        return `<button class="monster-btn" ${canUse ? '' : 'disabled'} 
-            onclick="useMonsterAction('${type}', ${index})">${action.text}</button>`;
-    }).join('');
-    
-    document.getElementById('monster-actions').innerHTML = actionsHtml + 
-        `<button class="monster-btn" style="background:#333;" onclick="fleeMonster()">🏃 逃跑（損失一半寶石）</button>`;
-    
-    showScreen('monster-screen');
-}
-
-function checkRequirements(requires) {
-    for (let item in requires) {
-        if ((gameState.inventory[item] || 0) < requires[item]) {
-            return false;
-        }
-    }
-    return true;
-}
-
-function useMonsterAction(monsterType, actionIndex) {
-    const action = monsters[monsterType].actions[actionIndex];
-    
-    // 消耗道具
-    for (let item in action.consumes) {
-        gameState.inventory[item] -= action.consumes[item];
-    }
-    
-    // 獲得掉落物
-    if (action.drops) {
-        for (let item in action.drops) {
-            gameState.inventory[item] = (gameState.inventory[item] || 0) + action.drops[item];
-        }
-        const dropNames = { lowFur: '低等毛皮', fur: '毛皮', sword: '劍' };
-        const dropText = Object.entries(action.drops).map(([k, v]) => `${dropNames[k]} ×${v}`).join(', ');
-        alert(`🎉 成功！獲得：${dropText}`);
-    } else {
-        alert('🎉 成功擊退怪物！');
-    }
-    
-    showScreen('map-screen');
-}
-
-function fleeMonster() {
-    gameState.gems = Math.floor(gameState.gems / 2);
-    alert(`你逃跑了，損失一半寶石！\n剩餘寶石：${gameState.gems}`);
-    showScreen('map-screen');
-}
-
-// ==================== 遊戲結束 ====================
-function gameOver(reason) {
-    document.getElementById('gameover-reason').textContent = reason;
-    showScreen('gameover-screen');
-}
-
-function victory() {
-    document.getElementById('final-stats').innerHTML = 
-        `最終寶石：${gameState.gems} 💎<br>收集到的劍：${gameState.inventory.sword} ⚔️`;
-    showScreen('victory-screen');
-}
-    </script>
-</body>
-</html>
